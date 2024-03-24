@@ -1,0 +1,82 @@
+get:
+    summary: Lista domen na czarnej liście
+    description: |
+        Lista wszystkich domen dodanych do czarnej listy przez użytkownika.
+    parameters:
+        - $ref: '/components/parameters/page.yaml'
+    responses:
+        200:
+            description: Kolekcja domen na czarnej liście
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        domain:
+                                            description: Domena dodana przez użytkownika
+                                            type: string
+                                            example: devkop.pl
+                                        created_at:
+                                            description: Data dodania domeny
+                                            type: string
+                                            example: 2019-02-25 20:35
+                                    required:
+                                        - domain
+                                        - created_at
+                            pagination:
+                                $ref: '/components/schemas/pagination.yaml#pagination'
+    tags:
+        - Ustawienia - Czarna lista
+post:
+    summary: Dodawanie nowej domeny do czarnej listy użytkownika
+    description: |
+        Każdy użytkownik posiada możliwość dodania wybranych domen do systemu czarnych list, dzięki czemu znaleziska z owych domen będą niewidoczone lub ograniczone.
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                domain:
+                                    description: Adres domeny internetowej.
+                                    type: string
+                                    example: devkop.pl
+                                    minLength: 4
+                                    maxLength: 255
+                                    pattern: /^[a-zA-Z0-9-.]+[.][a-zA-Z0-9]+$/
+                                    errors: ["not_blank", "too_short", "too_long", "invalid_format", "limit", "duplicate"]
+                            required:
+                                - domain
+    responses:
+        201:
+            description: Domena została prawidłowo dodana do czarnej listy lub domena już istnieje.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        409:
+            description: Wystąpił błąd podczas walidacji formularza. Krotka nie została dodana.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: Validate
+                            data:
+                                domain:
+                                    - "limit"
+                            key: 0
+    tags:
+        - Ustawienia - Czarna lista

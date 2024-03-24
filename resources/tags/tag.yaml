@@ -1,0 +1,94 @@
+get:
+  summary: Szczegóły tagu
+  parameters:
+    - $ref: '/components/parameters/tags.name.yaml'
+  responses:
+    200:
+      description: Szczegóły tagu
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/tag.yaml#tag'
+                  type: object
+  tags:
+    - Tagi
+
+put:
+  summary: Edycja tagu
+  description: Właściciel tagu może modyfikować tło oraz opis tagu.
+  parameters:
+    - $ref: '/components/parameters/tags.name.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                photo:
+                  description: Załącznik użytkownika. W celu dodania należy podać "key" pliku z media/photo. Akceptowane są tylko pliki przesłane jako typ `content`.
+                  type: string
+                  example: zn46EaDEVeZYiqlqoIzn4DEVeZYiqlqoI6EaDEVeZYiqlq46Ea
+                  errors: ["invalid"]
+                description:
+                  description: Opis linku
+                  type: string
+                  maxLength: 1000
+                  errors: ["too_long"]
+                  example: Some description
+  responses:
+    204:
+      description: Edycja zakończona sukcesem
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia znaleziska.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Tag nie istnieje
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Tagi

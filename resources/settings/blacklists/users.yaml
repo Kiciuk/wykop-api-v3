@@ -1,0 +1,107 @@
+get:
+    summary: Lista użytkowników na czarnej liście
+    description: |
+        Lista wszystkich użytkowników dodanych do czarnej listy przez użytkownika.
+    parameters:
+        - $ref: '/components/parameters/page.yaml'
+    responses:
+        200:
+            description: Kolekcja użytkowników na czarnej liście
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        username:
+                                            description: Nazwa użytkownika dodanego do czarnej listy
+                                            type: string
+                                            example: m__b
+                                        color:
+                                            $ref: '/components/schemas/color.yaml#color'
+                                        gender:
+                                            description: Płeć użytkownika
+                                            type: string
+                                            example: m
+                                            nullable: true
+                                        avatar:
+                                            description: Avatar użytkownika
+                                            type: string
+                                            example: https://cdn.wykop.pl/c3333992/1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2.jpg
+                                        created_at:
+                                            description: Data dodania użytkownika
+                                            type: string
+                                            example: 2019-02-25 20:35
+                                        admin:
+                                            description: Użytkownik o statusie administratora. Flaga widoczna tylko dla kont uprzywilejowanych.
+                                            type: boolean
+                                        banned:
+                                            description: Użytkownik zbanowany. Flaga widoczna tylko dla kont uprzywilejowanych.
+                                            type: boolean
+                                        removed:
+                                            description: Użytkownik usunięty. Flaga widoczna tylko dla kont uprzywilejowanych.
+                                            type: boolean
+                                    required:
+                                        - username
+                                        - color
+                                        - gender
+                                        - avatar
+                                        - created_at
+                            pagination:
+                                $ref: '/components/schemas/pagination.yaml#pagination'
+    tags:
+        - Ustawienia - Czarna lista
+post:
+    summary: Dodawanie nowego użytkownika do czarnej listy użytkownika
+    description: |
+        Każdy użytkownik posiada możliwość dodania wybranych użytkowników do systemu czarnych list, dzięki czemu znaleziska lub wpisy danego użytkownika będą ukrywane.
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                username:
+                                    description: Nazwa użytkownika
+                                    type: string
+                                    example: m__b
+                                    minLength: 3
+                                    maxLength: 35
+                                    errors: ["not_blank", "too_short", "too_long", "invalid_format", "limit", "invalid_user", "duplicate", "not_exist", "not_active"]
+                            required:
+                                - username
+    responses:
+        201:
+            description: Użytkownik został prawidłowo dodany do czarnej listy lub już istnieje.
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                $ref: '/components/schemas/user.short.yaml#short'
+        409:
+            description: Wystąpił błąd podczas walidacji formularza. Krotka nie została dodana.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: Validate
+                            data:
+                                domain:
+                                    - "limit"
+                            key: 0
+    tags:
+        - Ustawienia - Czarna lista

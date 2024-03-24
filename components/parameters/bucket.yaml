@@ -1,0 +1,7 @@
+name: bucket
+in: query
+required: false
+description: 'Hash kategorii użytkownika'
+schema:
+  type: string
+  example: '20k0dkmm2420k0dkmm24'

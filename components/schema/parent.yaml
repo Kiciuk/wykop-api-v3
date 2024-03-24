@@ -1,0 +1,32 @@
+parent:
+  type: object
+  description: Obiekt rodzica. Gdy obiekt nie posiada rodzica, przyjmuje wartość null.
+  properties:
+    resource:
+      description: Nazwa typu obiektu parenta (link, entry, link_comment)
+      type: string
+      example: link_comment
+    id:
+      description: ID obiektu rodzica
+      type: int
+      example: 1112
+    slug:
+      description: Slug z tytułu obiektu rodzica
+      type: string
+      example: tytul-znaleziska-lub-wpisu
+    author:
+      $ref: '/components/schemas/user.short.yaml#short'
+    location:
+      description: Lokalizacja obiektu na streamie
+      type: array
+      items:
+        type: object
+        properties:
+          filter:
+            description: Nazwa sortowania
+            type: string
+            example: "oldest"
+          page:
+            description: Numer strony
+            type: int
+            example: 1

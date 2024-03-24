@@ -1,0 +1,97 @@
+get:
+    summary: Pobranie jednej notyfikacji o prywatnej wiadomości dla zalogowanego użytkownika
+    parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identyfikator powiadomienia jako slug
+          schema:
+              type: string
+    responses:
+        200:
+            description: Notyfikacja o prywatnej wiadomości
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                $ref: '/components/schemas/notification/pm.yaml#pm'
+        404:
+            description: Brak powiadomienia o podanym identyfikatorze
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: ''
+                            key: 0
+    tags:
+        - Powiadomienia
+
+put:
+    summary: Ustawienie powiadomienia jako przeczytane
+    parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identyfikator powiadomienia jako slug
+          schema:
+              type: string
+    responses:
+        204:
+            description: Oznaczenie powiadomienia jako przeczytane
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.ok.yaml'
+                    example:
+                        status: ok
+        404:
+            description: Brak powiadomienia o podanym identyfikatorze
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: ''
+                            key: 0
+    tags:
+        - Powiadomienia
+
+delete:
+    summary: Usunięcie powiadomienia
+    parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identyfikator powiadomienia jako slug
+          schema:
+              type: string
+    responses:
+        204:
+            description: Usunięcie powiadomienia użytkownika
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        404:
+            description: Brak powiadomienia o podanym identyfikatorze
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: ''
+                            key: 0
+    tags:
+        - Powiadomienia

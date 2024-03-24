@@ -1,0 +1,151 @@
+get:
+    summary: Pobranie jednej notyfikacji dla zalogowanego użytkownika
+    parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identyfikator powiadomienia jako slug
+          schema:
+              type: string
+    responses:
+        200:
+            description: Notyfikacja
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    type:
+                                        description: Rodzaj powiadomienia
+                                        type: string
+                                        example: user
+                                    id:
+                                        description: Identyfikator powiadomienia jako hash
+                                        type: string
+                                        example: 1Vj36OrG
+                                    read:
+                                        description: Flaga informująca czy powiadomienie zostało już przeczytane
+                                        type: integer
+                                        example: 0
+                                    created_at:
+                                        description: Data dodania powiadomienia
+                                        type: string
+                                        example: '2019-02-25 20:35:11'
+                                    user:
+                                        $ref: '/components/schemas/user.short.yaml#short'
+                                    comment:
+                                        type: object
+                                        properties:
+                                            id:
+                                                description: Identyfikator komentarza jako slug
+                                                type: string
+                                                example: 'v6zlk2AJ'
+                                            message:
+                                                description: Treść komentarza
+                                                type: string
+                                                example: 'test comment message'
+                                    link:
+                                        type: object
+                                        properties:
+                                            id:
+                                                description: Identyfikator komentarza jako slug
+                                                type: string
+                                                example: 'qpz7Lwre'
+                                            title:
+                                                description: Tytuł
+                                                type: string
+                                                example: 'test title'
+                                    entry:
+                                        type: object
+                                        properties:
+                                            id:
+                                                description: Identyfikator komentarza jako slug
+                                                type: string
+                                                example: 'aQje6mA2'
+                                            message:
+                                                description: Treść wiadomości
+                                                type: string
+                                                example: 'test entry message'
+                                    msg:
+                                        description: Wiadomość systemowa
+                                        type: string
+                                        example: 'Twoje znalezisko zostało dodane do wykopaliska'
+        404:
+            description: Brak powiadomienia o podanym identyfikatorze
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: ''
+                            key: 0
+    tags:
+        - Powiadomienia
+
+put:
+    summary: Ustawienie powiadomienia jako przeczytane
+    parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identyfikator powiadomienia jako slug
+          schema:
+              type: string
+    responses:
+        204:
+            description: Oznaczenie powiadomień użytkownika jako przeczytane
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        404:
+            description: Brak powiadomienia o podanym identyfikatorze
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: ''
+                            key: 0
+    tags:
+        - Powiadomienia
+
+delete:
+    summary: Usunięcie powiadomienia
+    parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identyfikator powiadomienia jako slug
+          schema:
+              type: string
+    responses:
+        204:
+            description: Usunięcie powiadomienia użytkownika
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        404:
+            description: Brak powiadomienia o podanym identyfikatorze
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: ''
+                            key: 0
+    tags:
+        - Powiadomienia

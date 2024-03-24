@@ -1,0 +1,219 @@
+put:
+    summary: Globalne ustawienia portalu dla użytkownika.
+    description: |
+        Użytkownik może w dowolnym momencie zmieniać ustawienia dotyczące powiadomień, cenzury, przekleństwa itp. Istnieje możliwość zmiany tylko jednego ustawienia na jeden request.
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                only_link:
+                                    description: Pokazuj wyłącznie linki do obrazków
+                                    type: boolean
+                                    example: true
+                                animate_gif:
+                                    description: Pokazuj animowane gify dopiero po kliknięciu
+                                    type: boolean
+                                    example: true
+                                separated_plus:
+                                    description: Pokazuj osobno plusy i minusy w komentarzu
+                                    type: boolean
+                                    example: true
+                                show_burry_comments:
+                                    description: Pokazuj zminusowane komentarze
+                                    type: boolean
+                                    example: true
+                                show_curses:
+                                    description: Pokazuj przekleństwa
+                                    type: boolean
+                                    example: true
+                                show_nsfw:
+                                    description: Pokazuj treści NSFW
+                                    type: boolean
+                                    example: true
+                                show18:
+                                    description: Pokazuj treści +18
+                                    type: boolean
+                                    example: true
+                                show_online:
+                                    description: Pokazuj czy użytkownik jest online
+                                    type: boolean
+                                    example: true
+                                night_mode:
+                                    description: Włącz tryb "nocny" (0 - wyłączony, 1 - włączony, null - tryb określany przez system)
+                                    errors: [ "too_low", "too_high" ]
+                                    example: 1
+                                show_observed_tags:
+                                    description: Pokazuj obserwowane przez siebie tagi.
+                                    type: boolean
+                                    example: false
+                                newsletter:
+                                    description: Zgoda na wysyłanie newslettera
+                                    type: boolean
+                                    example: false
+                                content_send_by_enter:
+                                    description: Wysyłaj treści klawiszem "Enter"
+                                    type: boolean
+                                    example: true
+                                content_signed_images:
+                                    description: Dodawaj podpis pod obrazkiem
+                                    type: boolean
+                                    example: true
+                                content_blacklist_users_allow:
+                                    description: Pozwalaj osobom z czarnej listy odpowiadać na moje wpisy na mikroblogu
+                                    type: boolean
+                                    example: true
+                                notifications_blacklist_users_allow:
+                                    description: Pokazuj powiadomienia "o mnie" od osób z czarnej listy
+                                    type: boolean
+                                    example: true
+                                pm_to_me:
+                                    description: Prywatne wiadomości do mnie "do mnie" (0 - nie powiadamiaj, 1 - wyłącznie osób obserwowanych, 2 - od wszystkich)
+                                    type: integer
+                                    errors: [ "too_low", "too_high" ]
+                                    example: 1
+                                notifications_to_me:
+                                    description: Powiadomienia "do mnie" (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                    type: integer
+                                    errors: [ "too_low", "too_high" ]
+                                    example: 1
+                                notifications_application:
+                                    description: Powiadomienia "systemowe" (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                    type: integer
+                                    errors: [ "too_low", "too_high" ]
+                                    example: 2
+                                notifications_links:
+                                    description: Powiadomienia "znaleziska/worki" (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                    type: integer
+                                    errors: [ "too_low", "too_high" ]
+                                    example: 0
+                                notifications_tags:
+                                    description: Powiadomienia z obserwowanych tagów (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                    type: integer
+                                    errors: [ "too_low", "too_high" ]
+                                    example: 0
+
+    responses:
+        204:
+            description: Ustawienia zostały zapisane.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        404:
+            description: Nierozpoznane ustawienia
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+        409:
+            description: Wystąpił błąd podczas walidacji formularza. Krotka nie została dodana.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: Validate
+                            data:
+                                notifications_application:
+                                    - "too_low"
+                            key: 0
+    tags:
+        - Ustawienia
+
+get:
+    summary: Lista globalnych ustawień portalu dla użytkownika.
+    description: |
+        Globalne ustawienia portalu dla użytkownika.
+    responses:
+        200:
+            description: Publiczne dane zalogowanego użytkownika
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    only_link:
+                                        description: Pokazuj wyłącznie linki do obrazków
+                                        type: boolean
+                                        example: true
+                                    animate_gif:
+                                        description: Pokazuj animowane gify dopiero po kliknięciu
+                                        type: boolean
+                                        example: true
+                                    separated_plus:
+                                        description: Pokazuj osobno plusy i minusy w komentarzu
+                                        type: boolean
+                                        example: true
+                                    show_burry_comments:
+                                        description: Pokazuj zminusowane komentarze
+                                        type: boolean
+                                        example: true
+                                    show_curses:
+                                        description: Pokazuj przekleństwa
+                                        type: boolean
+                                        example: true
+                                    show_nsfw:
+                                        description: Pokazuj treści NSFW
+                                        type: boolean
+                                        example: true
+                                    show_observed_tags:
+                                        description: Pokazuj obserwowane przez siebie tagi.
+                                        type: boolean
+                                        example: false
+                                    show18:
+                                        description: Pokazuj treści +18
+                                        type: boolean
+                                        example: true
+                                    night_mode:
+                                        description: Włącz tryb "nocny" (0 - wyłączony, 1 - włączony, null - tryb określany przez system)
+                                        type: integer
+                                        example: 1
+                                    content_send_by_enter:
+                                        description: Wysyłaj treści klawiszem "Enter"
+                                        type: boolean
+                                        example: true
+                                    content_signed_images:
+                                        description: Dodawaj podpis pod obrazkiem
+                                        type: boolean
+                                        example: true
+                                    content_blacklist_users_allow:
+                                        description: Pozwalaj osobom z czarnej listy odpowiadać na moje wpisy na mikroblogu
+                                        type: boolean
+                                        example: true
+                                    notifications_blacklist_users_allow:
+                                        description: Pokazuj powiadomienia "o mnie" od osób z czarnej listy
+                                        type: boolean
+                                        example: true
+                                    pm_to_me:
+                                        description: Prywatne wiadomości do mnie "do mnie" (0 - nie powiadamiaj, 1 - wyłącznie osób obserwowanych, 2 - od wszystkich)
+                                        type: integer
+                                        example: 1
+                                    notifications_to_me:
+                                        description: Powiadomienia "do mnie" (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                        type: integer
+                                        example: 1
+                                    notifications_application:
+                                        description: Powiadomienia "systemowe" (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                        type: integer
+                                        example: 2
+                                    notifications_links:
+                                        description: Powiadomienia "znaleziska/worki" (0 - nie powiadamiaj, 1 - wyłącznie na portalu, 2 - na portalu i push)
+                                        type: integer
+                                        example: 0
+    tags:
+        - Ustawienia

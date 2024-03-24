@@ -1,0 +1,42 @@
+link_details:
+  type: object
+  allOf:
+    - $ref: '/components/schemas/link.yaml#link'
+    - type: object
+      properties:
+        alerts:
+          description: "Lista alertów."
+          type: array
+          items:
+            $ref: '/components/schemas/link_alert.yaml#link_alert'
+            type: object
+        favourite:
+          description: "Informacja czy użytkownik dodał znalezisko do ulubionych."
+          type: boolean
+          example: false
+        ama:
+          type: object
+          description: "Informacje na temat AMA."
+          nullable: true
+          properties:
+            muted:
+              description: "Autor AMA ma wyciszone powiadomienia."
+              type: boolean
+              example: false
+            verified:
+              description: "AMA zostało zweryfikowane."
+              type: boolean
+              example: false
+            closed:
+              type: object
+              description: "AMA zostało zakończone."
+              nullable: true
+              properties:
+                ended_at:
+                  description: "Data zakończenia AMA przez autora."
+                  type: string
+                  example: "2019-03-03 12:12:12"
+                text:
+                  description: "Tekst na zakończenie AMA."
+                  type: string
+                  example: "Dzięki! Byliście super!"

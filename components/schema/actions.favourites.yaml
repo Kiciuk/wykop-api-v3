@@ -1,0 +1,11 @@
+actions:
+  type: object
+  properties:
+    create_favourite:
+      description: Informacja czy użytkownik może dodać obiekt do ulubionychs
+      type: boolean
+      example: true
+    delete_favourite:
+      description: Informacja czy użytkownik może usunąć obiekt z ulubionych
+      type: boolean
+      example: true

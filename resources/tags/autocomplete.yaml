@@ -1,0 +1,43 @@
+get:
+  summary: Podpowiada tagi
+  parameters:
+    - name: query
+      in: query
+      description: Zapytanie
+      schema:
+        type: string
+  responses:
+    200:
+      description: Kolekcja wyszukanych tagów (max do 10 wyników)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                      name:
+                          description: Nazwa tagu
+                          type: string
+                          example: "heheszki"
+                      observed_qty:
+                          description: Liczba obserwujących użytkowników dany tag
+                          type: integer
+                          example: 0
+    400:
+      description: Brak parametru query lub parametr zbyt krótki
+      content:
+          application/json:
+              schema:
+                  $ref: '/components/schemas/basic.error.yaml'
+              example:
+                  code: 400
+                  hash: ''
+                  error:
+                      message: ''
+                      key: 0
+  tags:
+    - Tagi

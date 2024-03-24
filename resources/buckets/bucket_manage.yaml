@@ -1,0 +1,99 @@
+put:
+  summary: Edycja kategorii użytkownika
+  description: |
+    Użytkownik edytuje swoją kategorię
+  parameters:
+    -
+      name: hash
+      in: path
+      required: true
+      description: Hash kategorii użytkownika
+      example: 123o9rm0s9amfmem93mr
+      schema:
+          type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Nazwa kategorii użytkownika
+                  type: string
+                  example: "Tytuł kategorii użytkownika"
+                query:
+                  description: String zawierający treść wyszukiwania
+                  type: string
+                  example: "#polityka treść @user1"
+  responses:
+    200:
+      description: Poprawnie zedytowano kategorię użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/bucket.yaml#bucket'
+    400:
+      description: Brak dostępu do kategorii użytkownika
+    404:
+      description: Nie znaleziono kategorii użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: invalid
+              key: 0
+    409:
+      description: Wystąpił błąd. Krotka nie została zedytowana.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: invalid
+              key: 0
+  tags:
+    - Kategorie Użytkownika
+
+delete:
+  summary: Usuwanie kategorii użytkownika
+  description: |
+    Użytkownik usuwa swoją kategorię
+  parameters:
+    -
+      name: hash
+      in: path
+      required: true
+      description: Hash kategorii użytkownika
+      example: 123o9rm0s9amfmem93mr
+      schema:
+        type: string
+  responses:
+    204:
+      description: Poprawnie usunięto kategorie użytkownika
+    400:
+      description: Brak dostępu do kategorii użytkownika
+    404:
+      description: Nie znaleziono kategorii użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: invalid
+              key: 0
+  tags:
+    - Kategorie Użytkownika

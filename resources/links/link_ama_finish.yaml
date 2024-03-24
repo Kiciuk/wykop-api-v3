@@ -1,0 +1,55 @@
+post:
+  summary: Zakończ AMA
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                content:
+                  description: Podziękowanie na koniec AMA.
+                  type: string
+                  max: 400
+                  errors: ["too_long"]
+  responses:
+    204:
+      description: Akcja wykonana pomyślnie.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do wykonania akcji.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+    404:
+      description: Nie odnaleziono znaleziska.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                content:
+                  - "too_long"
+              key: 0
+  tags:
+    - Linki - AMA

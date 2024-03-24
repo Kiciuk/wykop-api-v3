@@ -1,0 +1,65 @@
+post:
+    summary: Autoryzacja aplikacji (generowanie tokenu JWT)
+    description: >
+        Chcemy zagwarantować dostęp do serwisu tylko z uwierzytelnionych źródeł, dlatego wprowadzony został system weryfikacji aplikacji.
+        Każda aplikacja otrzyma unikatową parę kluczy public/private do komunikacji z Wykopem.
+        Autoryzacja aplikacji polega na wysłaniu żądania POST na adres /auth oraz przesłaniu podanych kluczy public/private.
+        Po poprawnej autoryzacji zostanie wygenerowany token JWT, który wykorzystywany będzie do dalszej komunikacji.
+    security: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                key:
+                                    description: Identyfikator aplikacji dostarczony przez administratora.
+                                    type: string
+                                    example: devkopapp
+                                secret:
+                                    description: Hasło do przesłanego identyfikatora.
+                                    type: string
+                                    example: devkopapp
+                example:
+                    data:
+                        key: devkopapp
+                        secret: devkopapp
+    responses:
+        200:
+            description: Poprawna autoryzacja
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    token:
+                                        description: Unikatowy token JWT do autoryzacji aplikacji lub użytkownika.
+                                        type: string
+                                        example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDc3OTk0MDksImV4cCI6MTU0NzgwMzAwOSwicm9sZXMiOlsiUk9MRV9BUFAiXSwidXNlcm5hbWUiOiJhcHAxIiwidXNlci1hZ2VudCI6IjNiOTdkZjczMzI3OTgwNjllYzViNWM4MjY5MzZkNWM3IiwidXNlcl9pcCI6Mjg4NjkyNjMzNywiaWQiOjF9.tTVNqR4AFJYiIOYOtV3h2Ed7I5KMRJ-qCmygiH9fPok
+                                required:
+                                    - token
+                    example:
+                        data:
+                            token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDc3OTk0MDksImV4cCI6MTU0NzgwMzAwOSwicm9sZXMiOlsiUk9MRV9BUFAiXSwidXNlcm5hbWUiOiJhcHAxIiwidXNlci1hZ2VudCI6IjNiOTdkZjczMzI3OTgwNjllYzViNWM4MjY5MzZkNWM3IiwidXNlcl9pcCI6Mjg4NjkyNjMzNywiaWQiOjF9.tTVNqR4AFJYiIOYOtV3h2Ed7I5KMRJ-qCmygiH9fPok
+
+        401:
+            description: Nieprawidłowe dane uwierzytelniające
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 401
+                        hash: ''
+                        error:
+                            message: Username could not be found.
+                            key: 0
+    tags:
+        - Bezpieczeństwo

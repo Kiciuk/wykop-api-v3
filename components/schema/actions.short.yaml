@@ -1,0 +1,19 @@
+actions:
+  type: object
+  properties:
+    create:
+      description: Informacja czy użytkownik może utworzyć nowy obiekt
+      type: boolean
+      example: true
+    update:
+      description: Informacja czy użytkownik może zaktualizować obiekt
+      type: boolean
+      example: false
+    delete:
+      description: Informacja czy użytkownik może usunąć obiekt
+      type: boolean
+      example: false
+    vote:
+      description: Informacja czy użytkownik może zagłosować na obiekt
+      type: boolean
+      example: true

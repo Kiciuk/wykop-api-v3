@@ -1,0 +1,6 @@
+name: id
+in: path
+required: true
+description: Identyfikator
+schema:
+  type: integer

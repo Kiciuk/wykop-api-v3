@@ -1,0 +1,37 @@
+get:
+  summary: Pobranie obserwowanych tagów użytkownika
+  description: >
+    Zwraca listę tagów (z nazwą) które użytkownik aktualnie obserwuje
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    200:
+      description: Lista
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  $ref: '/components/schemas/tag/short_tag.yaml#short_tag'
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    400:
+      description: "Użytkownik nie pozwala na wgląd w obserwowane przez niego tagi."
+    404:
+      description: Wystąpił błąd podczas walidacji użytkownika. ("invalid_user" - brak konta, "removed_user" - konto usunięte przez użytkownika)
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: invalid_user
+              key: 0
+  tags:
+    - Profile

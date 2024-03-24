@@ -1,0 +1,78 @@
+post:
+    summary: Logowanie użytkowników przy użyciu `refresh_token`
+    description: >
+        Istnieje możliwość zalogowania użytkownika przy użyciu `refresh_token` wygenerowanego przy logowaniu lub przy użyciu wartości `login` cookie.
+        Po poprawnym zalogowaniu otrzymujemy nowy token JWT oraz nowy `refresh_token`.
+    security: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                refresh_token:
+                                    description: Unikatowy token umożliwiający odtworzenie sesji użytkownika.
+                                    type: string
+                                    example: 969c34bf36afb6d759db16553e527af8d2cd022c9f1fca3ca6efb5e5adb4e2bb
+                example:
+                    data:
+                        refresh_token: 969c34bf36afb6d759db16553e527af8d2cd022c9f1fca3ca6efb5e5adb4e2bb
+    responses:
+        200:
+            description: >
+                Użytkownik został prawidłowo zalogowany. W odpowiedzi został wysłany unikatowy token JWT dla użytkownika oraz `refresh_token` umożliwiający odtworzenie sesji użytkownika po wygaśnięciu JWT.
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    refresh_token:
+                                        description: Unikatowy identyfikator umożliwiający odtworzenie sesji użytkownika.
+                                        type: string
+                                        example: 969c34bf36afb6d759db16553e527af8d2cd022c9f1fca3ca6efb5e5adb4e2bb
+                                    token:
+                                        description: Unikatowy token JWT do autoryzacji użytkownika.
+                                        type: string
+                                        example: 9527af8d2cd022c9f1fca3ca6efb5e5adb4e2bb
+                                required:
+                                    - refresh_token
+                                    - token
+                        example:
+                            data:
+                                refresh_token: 969c34bf36afb6d759db16553e527af8d2cd022c9f1fca3ca6efb5e5adb4e2bb
+                                token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDc4MjExODMsImV4cCI6MTU0NzgyNDc4Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZGV2a29wdXNlciIsInVzZXItYWdlbnQiOiI1MTVjNmRlOTg2NWM3MjE5NmIxMDFkM2I1MTdiN2EwNCIsInVzZXJfaXAiOjI4ODY5MjYzMzcsImlkIjo0LCJhcHBfdG9rZW4iOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5pSjkuZXlKcFlYUWlPakUxTkRjNE1qRXhOVEFzSW1WNGNDSTZNVFUwTnpneU5EYzFNQ3dpY205c1pYTWlPbHNpVWs5TVJWOUJVRkFpWFN3aWRYTmxjbTVoYldVaU9pSmtaWFpyYjNCaGNIQWlMQ0oxYzJWeUxXRm5aVzUwSWpvaU5URTFZelprWlRrNE5qVmpOekl4T1RaaU1UQXhaRE5pTlRFM1lqZGhNRFFpTENKMWMyVnlYMmx3SWpveU9EZzJPVEkyTXpNM0xDSnBaQ0k2TTMwLkhGV3l6VXZOOW9fOHFLWkVhWnMyM0Nwc0NsVlB2VWFINjNWNDFJem83dHcifQ.dYqF8noNbG8ZRyw0dFa5szh6zF5IitHv26GGb8iEbZ0
+        401:
+            description: >
+                Wystąpił błąd podczas próby zalogowania użytkownika.
+                Jeżeli key = 1 to błędny `refresh_token`
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 401
+                        hash: ''
+                        error:
+                            message: Invalid credentials
+                            key: 1
+        423:
+            description: IP znajduje się na czarnej liście i zostało zablokowane.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 423
+                        hash: ''
+                        error:
+                            message: IP found on blacklist
+                            key: 0
+    tags:
+        - Bezpieczeństwo

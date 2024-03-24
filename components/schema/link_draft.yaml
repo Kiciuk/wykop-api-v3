@@ -1,0 +1,51 @@
+link_draft:
+  type: object
+  properties:
+    key:
+      description: Identyfikator
+      type: string
+      example: 7885e76c46b08eba4e955c35b7c889015f7a59c421548c7b9da49adceaa54be2
+    url:
+      description: Adres linku
+      type: string
+      example: https://www.youtube.com/watch?v=mzIsfSsZh7I
+    title:
+      description: Tytuł linku
+      type: string
+      example: The Best Upcoming ACTION Movies 2019 & 2020 (Trailer)
+    description:
+      description: Opis linku
+      type: string
+      example: |
+        Top Upcoming Action Movies 2019 Full Trailer Compilation | Subscribe ➤ http://abo.yt/ki | More https://KinoCheck.com
+        Included in this compilation are Terminator 6: Dark Fate, Rambo 5: Last Blood, Charlie's Angels, Mulan, Gemini Man, Angel Has Fallen, Midway, Star Wars 9: Rise of Skywalker, 21 Bridges, Stuber and Jumanji 3: The Next Level.
+    images:
+      description: Obrazki do linku
+      type: array
+      items:
+        type: object
+        properties:
+          url:
+            description: Adres do obrazka
+            type: string
+            example: 'https://s.redefine.pl/file/o2/redefine/cp/k3/k3b2eg6qyr226br21i5xgs66tp2kqerg.jpg'
+          selected:
+            description: Wybrany przez użytkownikcza
+            type: boolean
+            example: false
+    media:
+      description: Media dodane do draftu
+      type: object
+      properties:
+        photo:
+          description: Zdjęcie dodane do draftu
+          type: object
+          $ref: '/components/schemas/photo.yaml#photo'
+    adult:
+      description: Wpis tylko dla dorosłych
+      type: boolean
+      example: false
+    tags:
+      description: Tagi
+      type: array
+      example: ['nsfw', 'polityka']

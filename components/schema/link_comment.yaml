@@ -1,0 +1,12 @@
+comment:
+  allOf:
+    - $ref: '/components/schemas/comment.yaml#comment'
+    - type: object
+      properties:
+        parent_id:
+          type: int
+          description: >
+            Zwraca ID parent komentarza. Jeżeli nie ma, zwraca null.
+          example: 5
+        parent:
+          $ref: '/components/schemas/parent_link_comment.yaml#parent'

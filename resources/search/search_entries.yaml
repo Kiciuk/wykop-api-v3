@@ -1,0 +1,30 @@
+get:
+  summary: Przeszukuje wpisy
+  parameters:
+    - $ref: '/components/parameters/search/query.yaml'
+    - $ref: '/components/parameters/search/sort.yaml'
+    - $ref: '/components/parameters/search/votes.yaml'
+    - $ref: '/components/parameters/search/date_from.yaml'
+    - $ref: '/components/parameters/search/date_to.yaml'
+    - $ref: '/components/parameters/search/users.yaml'
+    - $ref: '/components/parameters/search/tags.yaml'
+    - $ref: '/components/parameters/category.yaml'
+    - $ref: '/components/parameters/bucket.yaml'
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/limit.yaml'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/entry.yaml#entry'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+  tags:
+    - Wyszukiwarka

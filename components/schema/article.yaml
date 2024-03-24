@@ -1,0 +1,70 @@
+article:
+  allOf:
+    - $ref: '/components/schemas/field/editable.yaml#editable'
+    - type: object
+      properties:
+        id:
+          description: >
+            Identyfikator
+          type: integer
+          example: 2341
+        title:
+          description: >
+            Tytuł artykułu
+          type: string
+          example: >
+            Alarm francuskiej Agencji Zdrowia z powodu komarów tygrysich
+        slug:
+          description: >
+            Slug artykułu
+          type: string
+          example: "george-r-r-martin-zabral-glos-na-temat-finalu-gry-o-tron"
+        content:
+          description: Treść artykułu
+          type: string
+          example: >
+            Alarm francuskiej Agencji Zdrowia z powodu komarów tygrysich. W Lyonie - trzecim co do wielkości francuskim mieście - odnotowano pierwszy przypadek dengi. To groźna choroba tropikalna przenoszona właśnie przez te owady.
+        content_html:
+          description: Treść artykułu zapisana w HTML
+          type: string
+          example: >
+            <div>Alarm francuskiej Agencji Zdrowia z powodu komarów tygrysich. W Lyonie - trzecim co do wielkości francuskim mieście - odnotowano pierwszy przypadek dengi. To groźna choroba tropikalna przenoszona właśnie przez te owady.</div>
+        author:
+          $ref: '/components/schemas/user.short.yaml#short'
+        deletable:
+          description: Informacja czy użytkownik może usunąć artykuł
+          type: boolean
+          example: false
+        published:
+          description: >
+            Informacja czy artykuł został opublikowany
+          type: boolean
+          example: false
+        created_at:
+          description: >
+            Data dodania
+          type: string
+          example: "2019-02-25 20:35:18"
+        updated_at:
+          description: >
+            Data modyfikacji
+          type: string
+          example: "2019-02-25 20:35:18"
+        link:
+          nullable: true
+          $ref: '/components/schemas/link.yaml#link'
+        histories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: >
+                  Identyfikator
+                type: integer
+                example: 2341
+              created_at:
+                description: >
+                  Data dodania
+                type: string
+                example: "2019-02-25 20:35:18"

@@ -1,0 +1,24 @@
+get:
+  summary: Lista wpisów i znalezisk autorstwa obserwowanych użytkowników
+  parameters:
+    - $ref: '/components/parameters/pagination.user.hash.yaml'
+  responses:
+    200:
+      description: Lista wpisów i znalezisk
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  anyOf:
+                    - $ref: '/components/schemas/link.yaml#link'
+                      type: object
+                    - $ref: '/components/schemas/entry.yaml#entry'
+                      type: object
+              pagination:
+                $ref: '/components/schemas/user.pagination.yaml#pagination'
+  tags:
+    - Obserwowane

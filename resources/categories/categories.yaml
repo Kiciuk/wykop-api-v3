@@ -1,0 +1,17 @@
+get:
+  summary: Lista kategorii
+  responses:
+    200:
+      description: Lista kategorii
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/category.yaml#category'
+                  type: object
+  tags:
+    - Kategorie

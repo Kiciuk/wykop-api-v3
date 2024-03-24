@@ -1,0 +1,10 @@
+full:
+  type: object
+  allOf:
+    - $ref: '/components/schemas/user.full.yaml#full'
+    - type: object
+      properties:
+        can_change_gender:
+          description: Czy użytkownik może zmienić płeć
+          type: boolean
+          example: true

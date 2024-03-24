@@ -1,0 +1,7 @@
+name: page
+in: query
+description: Hash strony.
+schema:
+  type: string
+  default: pk5647lgORZn
+

@@ -1,0 +1,21 @@
+get:
+  summary: Liczba znalezisk w wykopalisku
+  parameters:
+    - $ref: '/components/parameters/category.yaml'
+    - $ref: '/components/parameters/bucket.yaml'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  count:
+                    description: Licznik znalezisk
+                    type: integer
+                    example: 0
+  tags:
+    - Linki

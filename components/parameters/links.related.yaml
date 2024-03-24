@@ -1,0 +1,6 @@
+name: relatedId
+in: path
+required: true
+description: Identyfikator powiązanego
+schema:
+  type: integer

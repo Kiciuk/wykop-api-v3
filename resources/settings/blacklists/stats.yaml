@@ -1,0 +1,33 @@
+get:
+  summary: Informacja o tym, ile krotek użytkownik posiada na czarnych listach
+  description: Zwraca liczbę krotek na czarnych listach
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    total_users:
+                      description: Liczba użytkowników na czarnej liście
+                      type: integer
+                      example: 4
+                    total_tags:
+                      description: Liczba tagów na czarnej liście
+                      type: integer
+                      example: 2
+                    total_domains:
+                      description: Liczba domen na czarnej liście
+                      type: integer
+                      example: 7
+                  required:
+                    - total_users
+                    - total_tags
+                    - total_domains
+  tags:
+    - Ustawienia - Czarna lista

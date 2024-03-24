@@ -1,0 +1,103 @@
+post:
+  summary: Wgrywanie wskazanego pliku przez URL na serwer
+  description: |
+    Dozwolone jest wgrywanie multimedialnych plików o następujących mimetype: 'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png'.
+    Maksymalny rozmiar pliku to 10 MB.
+  parameters:
+    -
+      name: type
+      in: query
+      description: Nazwa obszaru z plikami na serwerze [settings, comments, links]
+      schema:
+        type: string
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                url:
+                  description: Adres na jakim znajduję się obrazek
+                  type: string
+                  example: 'https://www.wykop.pl/static/wykoppl7/s/c3d23bcf439f7af51024c494df7bb4af.png'
+                  minLength: 3
+                  maxLength: 200
+                  errors: ["not_blank", "too_short", "too_long", "invalid_format"]
+  responses:
+    200:
+      description: Wgrywanie pliku zakończyło się pomyślnie
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/photo.yaml#photo'
+    400:
+      description: Nie załączono pliku
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: File is required.
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                url:
+                  - "invalid_format"
+              key: 0
+    413:
+      description: Za duży plik
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 413
+            hash: ''
+            error:
+              message: Too big file size.
+              key: 0
+    415:
+      description: Nieobsługiwane mime type
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 415
+            hash: ''
+            error:
+              message: 'Not allowed mime type: application/pdf'
+              key: 0
+    429:
+      description: Za dużo prób dodania zdjęcia w którtkim okresie czasu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 429
+            hash: ''
+            error:
+              message: 'Too many upload requests in short time.'
+              key: 0
+  tags:
+    - Media - Zdjęcia

@@ -1,0 +1,6 @@
+name: date
+in: query
+required: false
+description: Data, od której sprawdzamy, czy pojawiły się nowe treści. Format “yyyy-MM-dd HH:mm:ss”.
+schema:
+    type: string

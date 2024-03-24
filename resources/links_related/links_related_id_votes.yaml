@@ -1,0 +1,27 @@
+delete:
+  summary: Cofnięcie głosu na jedno powiązane
+  description: Pozwala wycofać plus lub minus dla powiązanego elementu
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - $ref: '/components/parameters/links.related.yaml'
+  responses:
+    204:
+      description: Głos cofnięty poprawnie
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Link lub powiązane nie istnieje
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: 'Invalid data'
+              key: 0
+  tags:
+    - Linki - Powiązane

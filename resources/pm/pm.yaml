@@ -1,0 +1,26 @@
+get:
+  summary: Lista konwersacji
+  parameters:
+    - name: query
+      in: path
+      required: false
+      description: Nazwa użytkownika (min. 3 znaki)
+      schema:
+        type: string
+  responses:
+    200:
+      description: Lista konwersacji.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/pm/conversation.yaml#conversation'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+  tags:
+    - Prywatne wiadomości

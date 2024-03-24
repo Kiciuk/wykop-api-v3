@@ -1,0 +1,33 @@
+delete:
+    summary: Usunięcie użytkownika z czarnej listy
+    description: |
+        Użytkownik posiada możliwość usuwania użytkowników dodanych do własnej czarnej listy
+    parameters:
+        -
+            name: username
+            in: path
+            required: true
+            description: Nazwa użytkownika do usunięcia
+            schema:
+                type: string
+    responses:
+        204:
+            description: Poprawne usunięcie użytkownika z czarnej listy
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        409:
+            description: Wystąpił błąd. Krotka nie została usunięta.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: invalid
+                            key: 0
+    tags:
+        - Ustawienia - Czarna lista

@@ -1,0 +1,13 @@
+link_upvotes:
+    type: object
+    properties:
+        user:
+            $ref: '/components/schemas/user.short.yaml#short'
+        created_at:
+            description: Data utworzenia
+            type: string
+            example: "2019-03-03 12:12:12"
+        reason:
+            description: Powód zakopów. ['duplicate', 'spam', 'fake', 'wrong', 'invalid']
+            type: string
+            example: "spam"

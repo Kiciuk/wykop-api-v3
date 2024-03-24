@@ -1,0 +1,20 @@
+actions:
+  allOf:
+    - type: object
+      properties:
+        update:
+          type: boolean
+          description: Informacja czy użytkownik może edytować profil
+        update_gender:
+          type: boolean
+          description: Informacja czy użytkownik może zmienić płeć
+        update_note:
+          type: boolean
+          description: Informacja czy użytkownik może zmienić notatkę o danym użytkowniku
+        blacklist:
+          type: boolean
+          description: Informacja czy użytkownik może dodać użytkownika na czarną listę
+        follow:
+          type: boolean
+          description: Informacja czy użytkownik może śledzić danego użytkownika
+

@@ -1,0 +1,7 @@
+short_tag:
+  type: object
+  properties:
+    name:
+      description: Nazwa tagu
+      type: string
+      example: "heheszki"

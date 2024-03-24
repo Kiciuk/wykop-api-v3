@@ -1,0 +1,9 @@
+name: users
+in: query
+required: false
+description: 'Filtrowanie wyników po wybranych użytkownikach. Nazwa użytkownika może być poprzedzona @ ale nie musi.'
+schema:
+  type: array
+  items:
+    type: string
+  example: ["a__s", "@m__b"]

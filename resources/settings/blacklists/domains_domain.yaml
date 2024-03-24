@@ -1,0 +1,33 @@
+delete:
+    summary: Usunięcie domeny z czarnej listy
+    description: |
+        Użytkownik posiada możliwość usuwania domen dodanych do własnej czarnej listy
+    parameters:
+        -
+            name: domain
+            in: path
+            required: true
+            description: Nazwa domeny do usunięcia
+            schema:
+                type: string
+    responses:
+        204:
+            description: Poprawne usunięcie domeny
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        409:
+            description: Wystąpił błąd. Krotka nie została usunięta.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: invalid
+                            key: 0
+    tags:
+        - Ustawienia - Czarna lista

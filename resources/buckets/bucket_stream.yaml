@@ -1,0 +1,62 @@
+get:
+  summary: Lista wpisów i znalezisk z konkretnej kategorii użytkownika
+  description: |
+    Zwraca pełną listę wpisów i znalezisk z konkretnej kategorii użytkownika
+    UWAGA: Parametr page przyjmuje dla użytkowników niezalogowanych int z numerem strony, a dla zalogowanych hash strony.
+    UWAGA2: Standardowa paginacja jest dostępna tylko dla użytkowników niezalogowanych. Paginacja dla użytkowników zalogowanych będzie zwracać hash ‘next’ dla następnej strony i ‘prev’ dla poprzedniej.
+  parameters:
+    -
+      name: hash
+      in: path
+      required: true
+      description: Hash kategorii użytkownika
+      example: 123o9rm0s9amfmem93mr
+      schema:
+        type: string
+  responses:
+    200:
+      description: Lista wpisów i znalezisk
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  slug:
+                    type: string
+                    minlength: 1
+                    maxlength: 80
+                    example: 'fraza-sport-user1'
+                  query:
+                    type: string
+                    minlength: 1
+                    maxlength: 300
+                    example: 'fraza #sport @user1'
+                  items:
+                    type: array
+                    items:
+                      anyOf:
+                        -
+                          $ref: '/components/schemas/link.yaml#link'
+                          type: object
+                        -
+                          $ref: '/components/schemas/entry.yaml#entry'
+                          type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    404:
+      description: Podana kategoria użytkownika nie istnieje lub jej dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+  tags:
+    - Kategorie Użytkownika

@@ -1,0 +1,47 @@
+get:
+  summary: Lista znalezisk zakopanych przez zalogowanego użytkownika
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/limit.yaml'
+  responses:
+    200:
+      description: Lista znalezisk
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/link.yaml#link'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    400:
+      description: Brak uprawnień do odczytu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Wystąpił błąd podczas walidacji. Podany użytkownik nie istnieje lub jego dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+  tags:
+    - Profile

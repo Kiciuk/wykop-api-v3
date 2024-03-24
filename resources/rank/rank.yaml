@@ -1,0 +1,32 @@
+get:
+  summary: Zwraca aktualny ranking użytkowników
+  parameters:
+    - $ref: '/components/parameters/page.yaml'
+  responses:
+    200:
+      description: Zwraca listę użytkowników posortowaną według rankingu
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  $ref: '/components/schemas/user.full.yaml#full'
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    400:
+      description: Osiągnięto limit paginacji.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            error:
+              message: 'Search does not serve more than n-th results for query.'
+              key: 0
+  tags:
+    - Ranking

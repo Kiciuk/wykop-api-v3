@@ -1,0 +1,11 @@
+link_alert:
+  type: object
+  properties:
+    type:
+      description: Typ alertu
+      type: string
+      example: "link_deleted"
+    text:
+      description: Tekst alertu
+      type: string
+      example: "Link został usunięty"

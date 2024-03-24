@@ -1,0 +1,11 @@
+conversation:
+  type: object
+  properties:
+    user:
+      $ref: '/components/schemas/user.short.yaml#short'
+    last_message:
+      $ref: '/components/schemas/pm/message.yaml#message'
+    unread:
+      description: Informacja czy wiadomość nie została przeczytana (w przypadku braku wiadomości zwraca zawsze false)
+      type: boolean
+      example: false

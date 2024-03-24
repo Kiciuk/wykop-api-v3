@@ -1,0 +1,17 @@
+get:
+  summary: Zwraca popularne tagi autorskie
+  responses:
+    200:
+      description: Kolekcja popularnych tagów autorskich (max do 10 wyników)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/tag/short_tag.yaml#short_tag'
+                  type: object
+  tags:
+    - Tagi

@@ -1,0 +1,35 @@
+get:
+  summary: Pobiera listę osiągnięć użytkownika
+  description: >
+    Zwraca listę osiągnięć, które użytkownik odblokował
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    200:
+      description: Lista
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  $ref: '/components/schemas/badge.yaml#badge'
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    404:
+      description: Wystąpił błąd podczas walidacji użytkownika. ("invalid_user" - brak konta, "removed_user" - konto usunięte przez użytkownika)
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: invalid_user
+              key: 0
+  tags:
+    - Profile

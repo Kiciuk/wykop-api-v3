@@ -1,0 +1,6 @@
+name: year
+in: query
+required: false
+description: Rok
+schema:
+    type: int

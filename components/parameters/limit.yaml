@@ -1,0 +1,8 @@
+name: limit
+in: query
+description: Limit obiektów na stronie.
+min: 1
+max: 50
+schema:
+    type: integer
+    default: 25

@@ -1,0 +1,34 @@
+get:
+  summary: Lista linków powiązanych autorstwa danego użytkownika wraz ze znaleziskiem
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/limit.yaml'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/link_with_related.yaml#link_with_related'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    404:
+      description: Wystąpił błąd podczas walidacji. Podany użytkownik nie istnieje lub jego dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+  tags:
+    - Profile

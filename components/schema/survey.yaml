@@ -1,0 +1,27 @@
+survey:
+  type: object
+  properties:
+    key:
+      description: Unikatowy identyfikator ankiety
+      type: string
+      example: 1fde707843ss3f
+    question:
+      description: Pytanie
+      type: string
+      example: Co było pierwsze kura czy jajko?
+    voted:
+      description: Informacja czy użytkownik zagłosował [1 - użytkownik głosował; 0 - użytkownik nie głosował]
+      type: int
+      example: 0
+    count:
+      description: Łączna liczba głosów.
+      type: int
+      example: 67
+    answers:
+      type: array
+      description: Dostępne odpowiedzi. Minimalnie 2 a maksymalnie do 10.
+      items:
+        $ref: '/components/schemas/survey_answer.yaml#answer'
+        type: object
+    actions:
+      $ref: '/components/schemas/actions.short.yaml#actions'

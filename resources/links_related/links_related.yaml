@@ -1,0 +1,110 @@
+get:
+  summary: Lista powiązanych
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  responses:
+    200:
+      description: Lista linków powiązanych
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/link.related.yaml#link'
+                  type: object
+    404:
+      description: Nie odnaleziono znaleziska
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+  tags:
+    - Linki - Powiązane
+
+post:
+  summary: Dodawanie nowego elementu powiązanego
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Opis powiązanego
+                  type: string
+                  minLength: 3
+                  maxLength: 110
+                  errors: ["not_blank", "too_short", "too_long", "censure"]
+                url:
+                  description: Adres url do powiązanego
+                  type: string
+                  minLength: 4
+                  maxLength: 255
+                  errors: ["not_blank", "too_short", "too_long", "duplicate", "invalid_url", "banned_domain"]
+                adult:
+                  description: Informacja czy powiązany jest 18+
+                  type: bool
+              required:
+                - title
+                - url
+                - adult
+        example:
+          data:
+            title: Parov Stelar - Live at Sziget 2018 (Full Show)
+            url: https://www.youtube.com/watch?v=I5AOg8rTGHU
+            adult: false
+  responses:
+    201:
+      description: Powiązane dodane poprawnie
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: >
+        Wystąpił błąd podczas dodawania linku powiązanego.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: ''
+              key: 0
+    404:
+      description: Nie odnaleziono znaleziska.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: "Validate"
+              key: 0
+  tags:
+    - Linki - Powiązane

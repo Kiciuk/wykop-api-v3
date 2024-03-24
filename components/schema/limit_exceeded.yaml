@@ -1,0 +1,27 @@
+type: object
+properties:
+    code:
+        description: Kod HTTP (duplikat z nagłówka).
+        type: integer
+        example: 400
+    hash:
+        description: Wewnętrzny identifikator błędów. Kody powinny być zapisane w specjalnej tablicy umożliwiającej odczytanie błędu.
+        type: string
+        example: 7j3hsyt4hj
+    error:
+        description: Główny obiekt błędu dla aplikacji frontend.
+        type: object
+        properties:
+            message:
+                description: Prosty komunikat, bez szczegółów technicznych.
+                type: string
+                example: limit_exceeded
+            key:
+                description: Identyfikator do stack trace zapisany przez backend np. w redisie. Dla programistów.
+                type: integer
+                example: 0
+        required:
+            - message
+required:
+    - code
+    - error

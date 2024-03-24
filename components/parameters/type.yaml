@@ -1,0 +1,7 @@
+name: type
+in: query
+required: false
+description: Rodzaj treści - domyślnie (brak) 'upcoming'
+schema:
+    type: string
+    enum: [homepage, upcoming]

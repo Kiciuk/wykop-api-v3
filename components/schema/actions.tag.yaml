@@ -1,0 +1,17 @@
+actions:
+  allOf:
+    - $ref: '/components/schemas/actions.report.yaml#actions'
+    - type: object
+      properties:
+        update:
+          type: boolean
+          description: Informacja czy użytkownik może edytować tag
+        create_coauthor:
+          type: boolean
+          description: Informacja czy użytkownik może dodać współautora tagu
+        delete_coauthor:
+          type: boolean
+          description: Informacja czy użytkownik może usunąć współautora tagu
+        blacklist:
+          type: boolean
+          description: Informacja czy użytkownik może dodać tag na czarną listę

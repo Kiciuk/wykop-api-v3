@@ -1,0 +1,25 @@
+ad_rss:
+  allOf:
+    - type: object
+      properties:
+        resource:
+          description: Typ zasobu
+          type: string
+          example: "recommended_link"
+        title:
+          description: Tytuł
+          type: string
+          example: George R.R. Martin zabrał głos na temat finału "Gry o Tron"
+        description:
+          description: Opis
+          type: string
+          example: "Pracuję inaczej niż David i Dan, nie zapominajcie o tym..."
+        target_url:
+          description: Link przekierowujący na api panelu reklamowego (A później do wykopywarki)
+          type: string
+          example: "https://ad.wyk.pl/api/recommendations/articles/redirect/..."
+        image_url:
+          description: Url zdjęcia (jeśli istnieje)
+          type: string
+          example: "https://ad.wyk.pl/api/recommendations/image/..."
+

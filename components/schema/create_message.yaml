@@ -1,0 +1,19 @@
+message:
+  type: object
+  properties:
+    content:
+      description: Treść własna użytkownika.
+      type: string
+      example: 'Hej co słychać?'
+      errors: ["too_long"]
+      max: 10000
+    photo:
+      description: Zdjęcie. W celu dodania należy podać "key" pliku z media/photo. Akceptowane są tylko pliki przesłane jako typ `comments`.
+      type: string
+      example: e07843ss3fbe9cb4saeed0asdfsdfc64b9a4df6084199b39d2
+      errors: ["invalid"]
+    embed:
+      description: Unikatowy identyfikator embed
+      type: string
+      example: 1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2
+      errors: ["invalid"]

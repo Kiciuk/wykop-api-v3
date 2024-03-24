@@ -1,0 +1,26 @@
+get:
+  summary: Zwraca informację, czy są nowe wpisy lub znaleziska
+  parameters:
+    - $ref: '/components/parameters/tags.date.yaml'
+    - name: id
+      in: query
+      required: false
+      description: Identyfikator ostatniego widzianego wpisu lub znaleziska
+      schema:
+        type: integer
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  count:
+                    description: Licznik nowych obiektów
+                    type: integer
+                    example: 0
+  tags:
+    - Obserwowane

@@ -1,0 +1,7 @@
+name: resource
+in: path
+required: false
+description: Rodzaj elementu. domyślnie (brak) zwraca elementy wszystkich typów.
+schema:
+  type: string
+  enum: [link, entry, link_comment, entry_comment]

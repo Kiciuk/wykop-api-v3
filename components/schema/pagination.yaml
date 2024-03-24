@@ -1,0 +1,14 @@
+pagination:
+    type: object
+    properties:
+        per_page:
+            description: Liczba wyników na stronie.
+            type: integer
+            example: 25
+        total:
+            description: Łączna liczba wyników.
+            type: integer
+            example: 45
+    required:
+      - per_page
+      - total

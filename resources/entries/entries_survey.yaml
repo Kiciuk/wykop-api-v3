@@ -1,0 +1,45 @@
+post:
+  summary: Dodaje ankietę
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_survey.yaml#survey'
+  responses:
+    201:
+      description: Pomyślne utworzenie ankiety.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  survey_id:
+                    description: Unikatowy identyfikator ankiety
+                    type: string
+                    example: qErgdjp5K0xz
+                required:
+                  - survey_id
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Mikroblog - Ankieta

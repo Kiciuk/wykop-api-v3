@@ -1,0 +1,37 @@
+get:
+  summary: >
+    Lista odpowiedzi (podkomentarzy) do komentarza pod znaleziskiem
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - $ref: '/components/parameters/comment.id.yaml'
+    - $ref: '/components/parameters/page.yaml'
+  responses:
+    200:
+      description: >
+        Lista podkomentarzy
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/link_comment.yaml#comment'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+  tags:
+    - Linki - Komentarz

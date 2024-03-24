@@ -1,0 +1,142 @@
+get:
+  summary: Użytkownicy, którzy głosowali na komentarz
+  description: >
+    Pobiera użytkowników którzy głosowali na komentarz z mikroblogu.
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Lista głosujących użytkowników
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                items:
+                  type: object
+                  $ref: '/components/schemas/user.short.yaml#short'
+    404:
+      description: Nie odnaleziono wpisu lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog - Komentarz
+
+post:
+  summary: Głosowanie na wpis
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    201:
+      description: Pomyślne oddanie głosu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik głosował wcześniej na komentarz lub jest jego autorem.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: User had already vote for this entry.
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog - Komentarz
+
+delete:
+  summary: Cofnięcie głosu na komentarz
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne cofnięcie głosu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik nie głosował wcześniej na komentarz.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: User hadn't vote for this entry.
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog - Komentarz

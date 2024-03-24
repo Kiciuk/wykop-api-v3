@@ -1,0 +1,6 @@
+type: object
+properties:
+    status:
+        description: Status potwierdzający działanie aplikacji
+        type: string
+        example: ok

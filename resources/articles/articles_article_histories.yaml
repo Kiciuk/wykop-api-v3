@@ -1,0 +1,40 @@
+get:
+  summary: Pobranie wersji historycznej artykułu
+  description: Pobranie wersji historycznej artykułu przed zmianami dokonanymi w artykule. Najnowsza wersja artykułu nie jest dostępna dla tego EP.
+  parameters:
+    - name: articleId
+      in: path
+      required: true
+      description: Identyfikator artykułu
+      schema:
+        type: integer
+    - name: articleContentId
+      in: path
+      required: true
+      description: Identyfikator treści historycznej
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Pomyślna pobranie wersji historycznej.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/article.yaml#article'
+    404:
+      description: Nie odnaleziono artykułu, brak wybranej historii zmian lub brak uprawnień do podglądu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Article not found
+              key: 0
+  tags:
+    - Artykuły

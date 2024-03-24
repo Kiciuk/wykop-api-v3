@@ -1,0 +1,82 @@
+get:
+    summary: Lista tagów na czarnej liście
+    description: |
+        Lista wszystkich tagów dodanych do czarnej listy przez użytkownika.
+    parameters:
+        - $ref: '/components/parameters/page.yaml'
+    responses:
+        200:
+            description: Kolekcja tagów na czarnej liście
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        name:
+                                            description: Tag dodany przez użytkownika
+                                            type: string
+                                            example: heheszki
+                                        created_at:
+                                            description: Data dodania tagu
+                                            type: string
+                                            example: 2019-02-25 20:35
+                                    required:
+                                        - tag
+                                        - created_at
+                            pagination:
+                                $ref: '/components/schemas/pagination.yaml#pagination'
+    tags:
+        - Ustawienia - Czarna lista
+post:
+    summary: Dodawanie nowego tagu do czarnej listy użytkownika
+    description: |
+        Każdy użytkownik posiada możliwość dodania wybranych tagów do systemu czarnych list, dzięki czemu znaleziska lub wpisy z owym tagiem będą ukrywane.
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                tag:
+                                    description: Tag (z '#').
+                                    type: string
+                                    example: "#heheszki"
+                                    minLength: 2
+                                    maxLength: 51
+                                    pattern: /^#[a-zA-Z0-9]+$/
+                                    errors: ["not_blank", "too_short", "too_long", "invalid_format", "limit", "duplicate"]
+                            required:
+                                - tag
+    responses:
+        201:
+            description: Tag został prawidłowo dodany do czarnej listy lub tag już istnieje.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        409:
+            description: Wystąpił błąd podczas walidacji formularza. Krotka nie została dodana.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: Validate
+                            data:
+                                domain:
+                                    - "limit"
+                            key: 0
+    tags:
+        - Ustawienia - Czarna lista

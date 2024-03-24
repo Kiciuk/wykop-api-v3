@@ -1,0 +1,28 @@
+get:
+    summary: Pobranie danych publicznych zalogowanego użytkownika - wersja skrócona.
+    description: |
+        Użytkownicy posiadają możliwość ustawienia na swoim profilu danych, do których dostęp posiada każdy użytkownik portalu, nawet niezalogowany.
+    responses:
+        200:
+            description: Publiczne dane zalogowanego użytkownika - wersja skrócona
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                $ref: '/components/schemas/user.short.yaml#short'
+        404:
+            description: Wystąpił błąd podczas walidacji użytkownika. ("invalid_user" - brak konta, "removed_user" - konto usunięte przez użytkownika)
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: invalid_user
+                            key: 0
+    tags:
+        - Profile

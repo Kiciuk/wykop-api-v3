@@ -1,0 +1,6 @@
+name: linkId
+in: path
+required: true
+description: Identyfikator znaleziska
+schema:
+  type: integer

@@ -1,0 +1,15 @@
+link_with_comments:
+  type: object
+  allOf:
+    - $ref: '/components/schemas/link.yaml#link'
+    - type: object
+      properties:
+        comments:
+          type: object
+          properties:
+            items:
+              description: Tablica komentarzy
+              type: array
+              items:
+                type: object
+                $ref: '/components/schemas/link_comment.yaml#comment'

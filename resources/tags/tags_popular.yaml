@@ -1,0 +1,18 @@
+get:
+  summary: Lista popularnych tagów
+  description: |
+    Zwraca listę popularnych tagów.
+  responses:
+    200:
+      description: Lista tagów
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/tag.yaml#tag'
+  tags:
+    - Tagi

@@ -1,0 +1,8 @@
+name: sort
+in: query
+required: false
+description: Rodzaj sortowania
+schema:
+    type: string
+    enum: [all, day, week, month, year]
+    default: 'all'

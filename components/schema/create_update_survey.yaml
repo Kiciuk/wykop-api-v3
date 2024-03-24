@@ -1,0 +1,22 @@
+survey:
+  type: object
+  properties:
+    question:
+      description: Pytanie
+      type: string
+      example: Co było pierwsze kura czy jajko?
+      minLength: 5
+      maxLength: 100
+      errors: ["not_blank", "too_short", "too_long"]
+    answers:
+      description: Odpowiedzi. Każda odpowiedź może mieć do 50 znaków.
+      type: array
+      items:
+        type: string
+      example: ['Odpowiedź 1', 'Odpowiedź 2']
+      min: 2
+      max: 10
+      errors: ["not_blank", "too_few", "too_many", "invalid"]
+  required:
+    - question
+    - answers

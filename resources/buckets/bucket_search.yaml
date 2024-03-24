@@ -1,0 +1,41 @@
+get:
+  summary: Wyszukuje wpisy i znaleziska po definicji kategorii użytkownika
+  description: |
+    Zwraca listę do 25 znalezisk i wpisów dla konkretnej definicji kategorii użytkownika
+    UWAGA: Istnieje ograniczenie pobierania ilości wpisów i znalezisk `count` do 5 razy na 5 minut na użytkownika. Gdy zostanie ono przekroczone, `count` będzie zwracał null.
+  parameters:
+    -
+      name: query
+      in: query
+      required: true
+      description: 'Fraza po jakiej będzie wyszukiwało. Można wpisać słowa, nazwy użytkowników poprzedzone "@" lub hasztagi poprzedzone "#".'
+      example: "#polityka @user1"
+      schema:
+        type: string
+  responses:
+    200:
+      description: Lista wpisów i znalezisk
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  count:
+                    type: int
+                    desc: Ilośc linków i znalezisk z ostatniego miesiąca
+                    example: 10
+                  items:
+                    type: array
+                    items:
+                      anyOf:
+                        -
+                          $ref: '/components/schemas/link.yaml#link'
+                          type: object
+                        -
+                          $ref: '/components/schemas/entry.yaml#entry'
+                          type: object
+  tags:
+    - Kategorie Użytkownika

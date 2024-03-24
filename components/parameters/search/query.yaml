@@ -1,0 +1,7 @@
+name: query
+in: query
+required: false
+description: 'Fraza po jakiej będzie przeszukiwane. Można wpisać słowa, nazwy użytkowników poprzedzone "@" lub hasztagi poprzedzone "#".'
+schema:
+  type: string
+  example: 'foo bar #tech #zz @user1 @user3 prototyp radaru kwantowego'

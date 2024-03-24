@@ -1,0 +1,48 @@
+post:
+  summary: Wgrywanie podglądu embed przez URL na serwer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                url:
+                  description: Adres na jakim znajduję się embed
+                  type: string
+                  example: 'https://www.youtube.com/watch?v=ZkXq44hGeEE'
+                  maxLength: 255
+                  errors: ["not_blank", "too_long", "invalid_format", "invalid_url", "invalid"]
+              required:
+                - url
+
+  responses:
+    200:
+      description: Wgrywanie podglądu embed zakończyło się pomyślnie
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/embed.yaml#embed'
+                type: object
+    409:
+      description: Wystąpił błąd podczas walidacji formularza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                url:
+                  - "invalid_format"
+              key: 0
+  tags:
+    - Media - Embed

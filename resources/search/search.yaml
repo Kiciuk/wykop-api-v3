@@ -1,0 +1,58 @@
+get:
+  summary: Przeszukuje znaleziska, wpisy i użytkowników
+  parameters:
+    - $ref: '/components/parameters/search/query.yaml'
+    - $ref: '/components/parameters/search/sort.yaml'
+    - $ref: '/components/parameters/search/votes.yaml'
+    - $ref: '/components/parameters/search/date_from.yaml'
+    - $ref: '/components/parameters/search/date_to.yaml'
+    - $ref: '/components/parameters/search/domains.yaml'
+    - $ref: '/components/parameters/search/users.yaml'
+    - $ref: '/components/parameters/search/tags.yaml'
+    - $ref: '/components/parameters/category.yaml'
+    - $ref: '/components/parameters/bucket.yaml'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  links:
+                    type: object
+                    properties:
+                      total:
+                        description: Całkowita liczba wyników
+                        type: integer
+                      items:
+                        type: array
+                        items:
+                          $ref: '/components/schemas/link.yaml#link'
+                          type: object
+                  entries:
+                    type: object
+                    properties:
+                      total:
+                        description: Całkowita liczba wyników
+                        type: integer
+                      items:
+                        type: array
+                        items:
+                          $ref: '/components/schemas/entry.yaml#entry'
+                          type: object
+                  users:
+                    type: object
+                    properties:
+                      total:
+                        description: Całkowita liczba wyników
+                        type: integer
+                      items:
+                        type: array
+                        items:
+                          $ref: '/components/schemas/user.short.yaml#short'
+                          type: object
+  tags:
+    - Wyszukiwarka

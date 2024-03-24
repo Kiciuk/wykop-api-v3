@@ -1,0 +1,11 @@
+bucket:
+  type: object
+  properties:
+    hash:
+      description: Hash
+      type: string
+      example: 123o9rm0s9amfmem93mr
+    new:
+      description: Informacja czy kategoria zawiera nieprzeczytane elementy
+      type: boolean
+      example: false

@@ -1,0 +1,11 @@
+actions:
+  type: object
+  properties:
+    update:
+      description: Informacja czy użytkownik może zaktualizować obiekt
+      type: boolean
+      example: false
+    delete:
+      description: Informacja czy użytkownik może usunąć obiekt
+      type: boolean
+      example: false

@@ -1,0 +1,30 @@
+get:
+  summary: Przeszukuje użytkowników
+  parameters:
+    - $ref: '/components/parameters/search/query.yaml'
+    - name: sort
+      in: path
+      required: false
+      description: 'Sposób sortowania. Domyślnie jest sortowanie po score.'
+      schema:
+        enum: [score, newest]
+        type: string
+        example: 'score'
+    - $ref: '/components/parameters/search/users.yaml'
+    - $ref: '/components/parameters/page.yaml'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/user.short.yaml#short'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+  tags:
+    - Wyszukiwarka

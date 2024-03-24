@@ -1,0 +1,22 @@
+get:
+    summary: Pobranie notyfikacji o prywatnych wiadomościach dla zalogowanego użytkownika
+    parameters:
+        - $ref: '/components/parameters/page.yaml'
+    responses:
+        200:
+            description: Pobranie listy notyfikacji o prywatnych wiadomościach użytkownika
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    type: object
+                                    $ref: '/components/schemas/notification/pm.yaml#pm'
+                            pagination:
+                                $ref: '/components/schemas/pagination.yaml#pagination'
+
+    tags:
+        - Powiadomienia

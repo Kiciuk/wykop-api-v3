@@ -1,0 +1,11 @@
+put:
+    summary: Oznacza wszystkie otrzymane wiadomości jako odczytanie.
+    responses:
+        204:
+            description: Pomyślne wykonanie akcji.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+    tags:
+        - Prywatne wiadomości

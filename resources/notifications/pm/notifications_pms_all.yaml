@@ -1,0 +1,23 @@
+put:
+    summary: Ustawienie wszystkich powiadomień z prywatnych wiadomości jako przeczytane
+    responses:
+        204:
+            description: Oznaczenie powiadomień z prywatnych wiadomości jako przeczytane
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+    tags:
+        - Powiadomienia
+
+delete:
+    summary: Usunięcie wszystkich powiadomień z prywatnych wiadomości
+    responses:
+        204:
+            description: Usunięcie powiadomień z prywatnych wiadomości
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+    tags:
+        - Powiadomienia

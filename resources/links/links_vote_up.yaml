@@ -1,0 +1,50 @@
+post:
+  summary: Wykopanie znaleziska
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  responses:
+    204:
+      description: Akcja zakończona pomyślnie
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik nie może głosować na własne znaleziska lub znalezisko archiwalne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Wystąpił błąd podczas walidacji. Podane znalezisko nie istnieje lub jego dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+    409:
+      description: >
+        Wystąpił błąd podczas walidacji. Użytkownik próbuje wykopać już wykopane znalezisko lub użytkownik próbuje zakopać już zakopane znalezisko.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Link already digged
+              key: 0
+  tags:
+    - Linki

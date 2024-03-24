@@ -1,0 +1,7 @@
+name: type
+in: path
+required: true
+description: Dostępne wartości "up" - wykopanie lub "down" - zakopanie
+schema:
+  type: string
+  enum: [up, down]

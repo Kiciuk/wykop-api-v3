@@ -1,0 +1,14 @@
+pagination:
+  type: object
+  properties:
+    next:
+      description: Hash kolejnej strony.
+      type: string
+      example: pk5647lgORZn
+    prev:
+      description: Hash poprzedniej strony.
+      type: string
+      example: hr2343lgOFsG
+  required:
+    - next
+    - prev

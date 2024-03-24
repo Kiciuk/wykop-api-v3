@@ -1,0 +1,41 @@
+get:
+    summary: Zwraca informacje czy są wpisy, linki w tagu
+    parameters:
+        - $ref: '/components/parameters/tags.name.yaml'
+        - $ref: '/components/parameters/tags.type.yaml'
+        - $ref: '/components/parameters/tags.sort.yaml'
+        - $ref: '/components/parameters/tags.date.yaml'
+        - name: id
+          in: query
+          required: false
+          description: Identyfikator ostatniego widzianego wpisu lub znaleziska
+          schema:
+              type: integer
+    responses:
+        200:
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    count:
+                                        description: Licznik nowych obiektów
+                                        type: integer
+                                        example: 0
+        404:
+            description: Podany tag nie istnieje lub jego dane są niedostępne.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: Not found
+                            key: 0
+    tags:
+        - Tagi

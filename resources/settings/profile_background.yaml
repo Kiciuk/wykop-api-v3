@@ -1,0 +1,70 @@
+post:
+  summary: Ustawia tło użytkownika
+  description: |
+    Użytkownik posiada możliwość ustawienia tła.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                background:
+                  description: Tło użytkownika. W celu dodania należy podać key pliku z CDN. Akceptowane są tylko pliki przesłane jako typ `settings`.
+                  type: string
+                  example: asdas23432asfasfsdfsdf234234324.jpg
+                  errors: ["not_blank", "invalid"]
+              required:
+                - background
+  responses:
+    204:
+      description: Tło zostało ustawione.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak wymaganych uprawnień.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza. Tło nie zostało ustawione.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                background:
+                  - "invalid"
+              key: 0
+  tags:
+    - Ustawienia
+delete:
+  summary: Usuwa tło użytkownika
+  description: |
+    Użytkownik posiada możliwość usunięcia tła.
+  responses:
+    204:
+      description: Poprawne usunięcie tła
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+  tags:
+    - Ustawienia

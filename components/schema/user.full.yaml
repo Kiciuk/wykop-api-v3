@@ -1,0 +1,136 @@
+full:
+  type: object
+  allOf:
+    - $ref: '/components/schemas/user.short.yaml#short'
+    - type: object
+      properties:
+        name:
+          description: Imię i nazwisko
+          type: string
+          example: Piotr Nowak
+        city:
+          description: Miasto
+          type: string
+          example: Poznań
+        website:
+          description: Prywatna strona WWW
+          type: string
+          example: www.onet.pl
+        about:
+          description: Opis "O Mnie"
+          type: string
+          example: Lorem ipsum
+        public_email:
+          description: Publiczny email
+          type: string
+          example: piotr.nowak@gmail.com
+        background:
+          description: Tło (adres url)
+          type: string
+          example: https://cdn.wykop.pl/c3333992/1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2.jpg
+        followers:
+          description: Liczba obserwujących
+          type: integer
+          example: 3
+        member_since:
+          description: Data założenia konta
+          type: string
+          example: "2005-12-28 11:12:13"
+        summary:
+          description: Podsumowanie aktywności
+          type: object
+          properties:
+            actions:
+              description: Łączna liczba akcji
+              type: integer
+              example: 1234
+            links:
+              description: Łączna liczba akcji związanych ze znaleziskami
+              type: integer
+              example: 1234
+            links_details:
+              type: object
+              properties:
+                added:
+                  description: Łączna liczba dodanych znalezisk
+                  type: integer
+                  example: 1234
+                commented:
+                  description: Łączna liczba skomentowanych znalezisk
+                  type: integer
+                  example: 1234
+                published:
+                  description: Łączna liczba znalezisk, która trafiła na stronę główną
+                  type: integer
+                  example: 1234
+                related:
+                  description: Łączna liczba dodanych znalezisk powiązanych
+                  type: integer
+                  example: 1234
+                up:
+                  description: Łączna liczba wykopów
+                  type: integer
+                  example: 1234
+                down:
+                  description: Łączna liczba zakopów (widoczne tylko dla własnego profilu)
+                  type: integer
+                  example: 1234
+            entries:
+              description: Łączna liczba akcji na mikroblogu
+              type: integer
+              example: 1234
+            entries_details:
+              type: object
+              properties:
+                added:
+                  description: Łączna liczba dodanych wpisów
+                  type: integer
+                  example: 1234
+                commented:
+                  description: Łączna liczba skomentowanych wpisów
+                  type: integer
+                  example: 1234
+                voted:
+                  description: Łączna liczba oddanych głosów na wpisy
+                  type: integer
+                  example: 1234
+            following_users:
+              description: Liczba obserwowanych użytkowników
+              type: integer
+              example: 1234
+            following_tags:
+              description: Liczba obserwowanych tagów
+              type: integer
+              example: 1234
+            followers:
+              description: Liczba obserwujących
+              type: integer
+              example: 1234
+        social_media:
+          description: Odnośniki do portali społecznościowych
+          type: object
+          properties:
+            facebook:
+              description: Adres do profilu
+              type: string
+              example: https://www.facebook.com/wykoppl/
+            instagram:
+              description: Adres do profilu
+              type: string
+              example: https://www.instagram.com/wykop/
+            twitter:
+              description: Adres do profilu
+              type: string
+              example: https://twitter.com/elonmusk
+        banned:
+          description: '[opcjonalne] Szczegóły dotyczące użytkownika zbanowanego. Obiekt widoczny tylko w przypadku bana.'
+          type: object
+          properties:
+            reason:
+              description: Powód otrzymania bana. W przypadku własnego profilu lub uprawnień moderacjnych komunikat powodu może być inny (posiadamy komunikaty publiczne i prywatne).
+              type: string
+              example: Multikonto xD
+            expired:
+              description: Data do kiedy adres jest zbanowany. W przypadku wartości NULL użytkownik dostał bana na stałe.
+              type: string
+              example: "2020-12-03 12:12:12"

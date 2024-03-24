@@ -1,0 +1,15 @@
+get:
+    summary: Wylogowanie użytkownika.
+    description: >
+        Wylogowanie użytkownika lub aplikacji oraz usuniecie tokenów JWT umożliwiających komunikacje aplikacji klienta z serwerem.
+        W przypadku utworzenia pliku cookie powinien zostać on skasowany.
+    responses:
+        204:
+            description: >
+                Poprawne wylogowanie i usunięcie danych dotyczących sesji i informacji pomocniczych.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+    tags:
+        - Bezpieczeństwo

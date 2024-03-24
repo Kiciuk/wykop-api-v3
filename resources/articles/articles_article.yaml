@@ -1,0 +1,134 @@
+get:
+  summary: Pobranie artykułu
+  description: Artykuł jest widoczy dla wszystkich jeżeli ma link kierujący do niego. Właściciel ma zawsze wgląd w artykuł.
+  parameters:
+    - $ref: '/components/parameters/id.yaml'
+  responses:
+    200:
+      description: Pomyślnie pobrano artykuł.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/article.yaml#article'
+    404:
+      description: Nie odnaleziono artykułu lub brak uprawnień do podglądu artykułu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Article not found
+              key: 0
+  tags:
+    - Artykuły
+
+put:
+  summary: Edycja artykułu
+  description: Można modyfikować tylko własne artykuły. Autor może modyfikować artykuł przez 15 minut od daty dodania.
+  parameters:
+    - $ref: '/components/parameters/id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_article.yaml#article'
+  responses:
+    200:
+      description: Pomyślna edycja artykułu.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/article.yaml#article'
+    400:
+      description: Brak uprawnień do edycji artykułu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono artykułu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Article not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Artykuły
+
+delete:
+  summary: Usuwanie artykułu
+  description: Można usuwać tylko własne artykuły. Autor może usunąć artykuł przez 15 minut od daty dodania.
+  parameters:
+    - $ref: '/components/parameters/id.yaml'
+  responses:
+    204:
+      description: Pomyślne usunięcie artykułu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia artykułu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono artykułu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Article not found
+              key: 0
+  tags:
+    - Artykuły

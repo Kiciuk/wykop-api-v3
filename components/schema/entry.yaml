@@ -1,0 +1,135 @@
+entry:
+  allOf:
+    - $ref: '/components/schemas/field/editable.yaml#editable'
+    - type: object
+      properties:
+        id:
+          description: >
+            Identyfikator
+          type: integer
+          example: 2341
+        author:
+          $ref: '/components/schemas/user.short.yaml#short'
+        device:
+          description: >
+            Urządzenie z jakiego napisano wpis
+          type: string
+          example: Android
+        created_at:
+          description: Data dodania
+          type: string
+          example: "2019-02-25 20:35:18"
+        voted:
+          description: >
+            Informacja czy użytkownik zagłosował na wpis [1 - użytkownik głosował; 0 - użytkownik nie głosował]
+          type: int
+          example: 0
+        content:
+          description: >
+            Treść wpisu
+          type: string
+          example: Android
+        media:
+          description: >
+            Media dodane do wpisu
+          type: object
+          properties:
+            photo:
+              description: >
+                Zdjęcie dodane do wpisu
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'
+            embed:
+              description: >
+                Zewnętrzne źródło
+              type: object
+              $ref: '/components/schemas/embed.yaml#embed'
+            survey:
+              description: >
+                Ankieta [tylko dla wpisu]
+              type: object
+              $ref: '/components/schemas/survey.yaml#survey'
+        adult:
+          description: >
+            Wpis tylko dla dorosłych
+          type: boolean
+          example: false
+        tags:
+          description: Tagi
+          type: array
+          example: ['nsfw', 'polityka']
+        favourite:
+          description: >
+            Informacja czy użytkownik dodał wpis do ulubionych
+          type: boolean
+          example: false
+        deletable:
+          description: >
+            Informacja czy użytkownik może usunąć wpis
+          type: boolean
+          example: false
+        slug:
+          description: >
+            Slug wpisu
+          type: string
+          example: foo-bar-fooobar
+        votes:
+          description: >
+            Osoby głosujące na wpis
+          type: object
+          properties:
+            up:
+              description: >
+                Liczba głosów pozytywnych
+              type: integer
+              example: 23
+            down:
+              description: >
+                Liczba głosów negatywnych
+              type: integer
+              example: 5
+            users:
+              description: >
+                Użytkownicy głosujący na wpis
+              type: array
+              items:
+                type: object
+                $ref: '/components/schemas/user.short.yaml#short'
+        comments:
+          description: >
+            Komentarze
+          type: object
+          properties:
+            items:
+              description: >
+                Tablica komentarzy
+              type: array
+              items:
+                type: object
+                $ref: '/components/schemas/entry_comment.yaml#comment'
+            count:
+              description: >
+                Liczba komentarzy
+              type: integer
+              example: 5
+        parent_id:
+          description: >
+            Identyfikator komentarza rodzica
+          type: integer
+          example: 10
+          required: false
+        resource:
+          description: >
+            Rodzaj zasobu
+          type: string
+          example: 'entry'
+        actions:
+          $ref: '/components/schemas/actions.entry.yaml#actions'
+        archive:
+          description: Informacja czy wpis pochodzi z archiwum
+          type: bool
+          example: false
+        deleted:
+          description: Zwarace informację czy obiekt jest usunięty. Pole widoczne tylko dla moderatora i administratora.
+          type: boolean
+          example: false

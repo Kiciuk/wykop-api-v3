@@ -1,0 +1,42 @@
+get:
+    summary: Sprawdzenie czy zalogowany użytkownik posiada nowe powiadomienia
+    responses:
+        200:
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    pm:
+                                        description: Nowa prywatna wiadomości
+                                        type: boolean
+                                        example: true
+                                    pm_notification:
+                                        description: Nowe powiadomienie z prywatnych wiadomości
+                                        type: boolean
+                                        example: true
+                                    entry_notification:
+                                        description: Nowe powiadomienie dla użytkownika
+                                        type: boolean
+                                        example: true
+                                    tag_notification:
+                                        description: Nowe powiadomienie z obserwowanych tagów
+                                        type: boolean
+                                        example: true
+                                    pm_notification_count:
+                                        description: Liczba nowych powiadomień z prywatnych wiadomości
+                                        type: integer
+                                        example: 1
+                                    entry_notification_count:
+                                        description: Liczba nowych powiadomień dla użytkownika
+                                        type: integer
+                                        example: 0
+                                    tag_notification_count:
+                                        description: Liczba nowych powiadomień z obserwowanych tagów
+                                        type: integer
+                                        example: 3
+    tags:
+        - Powiadomienia

@@ -1,0 +1,6 @@
+name: commentId
+in: path
+required: true
+description: Identyfikator komentarza
+schema:
+  type: integer

@@ -1,0 +1,23 @@
+put:
+    summary: Ustawienie wszystkich powiadomień użytkownika jako przeczytane
+    responses:
+        204:
+            description: Oznaczenie powiadomień użytkownika jako przeczytane
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+    tags:
+        - Powiadomienia
+
+delete:
+    summary: Usunięcie wszystkich powiadomień użytkownika
+    responses:
+        204:
+            description: Usunięcie powiadomień użytkownika
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+    tags:
+        - Powiadomienia

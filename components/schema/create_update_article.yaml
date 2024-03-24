@@ -1,0 +1,24 @@
+article:
+  type: object
+  properties:
+    title:
+      description: Tytuł artykułu
+      type: string
+      example: 'wykop rules!'
+      errors: [ "not_blank", "too_short", "too_long" ]
+      minLength: 10
+      maxLength: 80
+    content:
+      description: Treść artykułu
+      type: string
+      example: 'wykop rules!'
+      errors: [ "not_blank", "too_long" ]
+      maxLength: 20000
+    content_html:
+      description: Treść artykułu w formacie HTML
+      type: string
+      example: '<div>wykop rules!</div>'
+      errors: [ "too_long" ]
+      maxLength: 15000
+  required:
+    - content

@@ -1,0 +1,27 @@
+put:
+  summary: Rozpoczęcie AMA
+  description: >
+    Autor nie będzie otrzymywał powiadomień do czasu wykonania tej akcji ponownie. Działa jak toggele.
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  responses:
+    204:
+      description: Akcja wykonana pomyślnie.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do wykonania akcji.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+    404:
+      description: Nie odnaleziono znaleziska.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+  tags:
+    - Linki - AMA

@@ -1,0 +1,7 @@
+actions:
+  type: object
+  properties:
+    report:
+      description: Informacja czy użytkownik może zgłosić obiekt
+      type: boolean
+      example: false

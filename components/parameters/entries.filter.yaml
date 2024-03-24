@@ -1,0 +1,8 @@
+name: last_update
+in: path
+required: false
+description: Pokaż wyniki z ostatnich godzin [1, 2, 3, 6, 12, 24]. Filtr dostępny tylko wraz z filtrem gorące.
+schema:
+    type: int
+    default: 12
+    enum: [1, 2, 3, 6, 12, 24]

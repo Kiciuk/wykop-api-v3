@@ -1,0 +1,53 @@
+tag:
+  allOf:
+    - $ref: '/components/schemas/field/editable.yaml#editable'
+    - type: object
+      properties:
+        created_at:
+          description: Data utworzenia
+          type: string
+          example: "2019-03-03 12:12:12"
+        name:
+          description: Nazwa tagu
+          type: string
+          example: "heheszki"
+        author:
+          $ref: '/components/schemas/user.short.yaml#short'
+        personal:
+          description: Informacja czy tag jest autorski
+          type: bool
+          example: false
+        media:
+          description: Media dodane do tagu
+          type: object
+          properties:
+            photo:
+              description: Zdjęcie dodane do tagu
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'
+        description:
+          description: Opis tagu
+          type: string
+          example: "Tag o wszystkim i o niczym"
+        followers:
+          description: Ilość osób która śledzi dany tag
+          type: int
+          example: 212
+        follow:
+          description: Czy aktualny użytkownik śledzi dany tag
+          type: bool
+          example: false
+        notifications:
+          description: Czy aktualny użytkownik otrzymuje powiadomienia z tagu
+          type: bool
+          example: false
+        blacklist:
+          description: Informacja czy tag jest na czarnej liście
+          type: bool
+          example: true
+        promoted:
+          description: Informacja czy tag jest prowadzony w ramach konkursu.
+          type: bool
+          example: true
+        actions:
+          $ref: '/components/schemas/actions.tag.yaml#actions'

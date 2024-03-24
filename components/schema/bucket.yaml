@@ -1,0 +1,27 @@
+bucket:
+  type: object
+  properties:
+    title:
+      description: Tytuł kategorii użytkownika
+      type: string
+      example: Moja Polityczna Kategoria
+    query:
+      description: Zapytanie kategorii użytkownika
+      type: string
+      example: "#polityka @user1"
+    hash:
+      description: Hash
+      type: string
+      example: 123o9rm0s9amfmem93mr
+    slug:
+      description: Slug
+      type: string
+      example: tytul-kategorii-uzytkownika
+    new:
+      description: Informacja czy kategoria zawiera nieprzeczytane elementy
+      type: boolean
+      example: false
+    default_page:
+      description: "Domyślna strona, na której powinna się otworzyć kategoria. Dostępne wartości: home, upcoming, entries."
+      type: string
+      default: 'home'

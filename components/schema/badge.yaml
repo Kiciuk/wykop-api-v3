@@ -1,0 +1,54 @@
+badge:
+  type: object
+  properties:
+    label:
+      description: Nazwa osiągnięcia
+      type: string
+      example: "Wykopowicz"
+    slug:
+      description: Slug osiągnięcia
+      type: string
+      example: "wykopowicz-1"
+    description:
+      description: Opis osiągnięcia
+      type: string
+      example: "Za zdobytą ilość linków na stronie głównej"
+    type:
+      description: |
+        Typ osiągnięcia (check - osiągnięcie odblokowywane za jedną akcją/nadane przez administracje; progress - osiągnięcie odblokowywane
+        stopniowo
+      type: string
+      example: "check"
+    media:
+      description: Media
+      type: object
+      properties:
+        icon:
+          description: Ikona
+          type: object
+          $ref: '/components/schemas/photo.yaml#photo'
+    color:
+      description: Kolor osiągnięcia
+      type: object
+      properties:
+        hex:
+          description: Hex koloru
+          type: string
+          example: "000000"
+        hex_dark:
+          description: Hex koloru w trybie nocnym
+          type: string
+          example: "ffffff"
+    level:
+      description: Poziom osiągnięcia
+      type: int
+      example: 1
+    progress:
+      description: Progres w zdobyciu osiągnięcia (wyrażony w procentach)
+      type: int
+      example: 50
+    achieved_at:
+      description: "Data odblokowania osiągnięcia przez użytkownika. Zwraca null w przypadku gdy użytkownik nie odblokował osiągnięcia"
+      type: string
+      example: "2021-01-01 20:00:00"
+

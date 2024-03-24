@@ -1,0 +1,45 @@
+delete:
+  summary: Usunięcie pliku
+  description: |
+    Właściciel pliku posiada możliwość jego usunięcia z serwera.
+  parameters:
+    -
+      name: key
+      in: path
+      required: true
+      description: Identyfikator pliku
+      schema:
+        type: string
+  responses:
+    204:
+      description: Poprawne usunięcie pliku
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia pliku.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Plik nie został odnaleziony lub neleży do innego użytkownika.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Media not found
+              key: 0
+  tags:
+    - Media - Zdjęcia

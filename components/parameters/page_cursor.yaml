@@ -1,0 +1,6 @@
+name: page
+in: query
+description: Hash strony do pobrania.
+schema:
+  type: string
+  default: null

@@ -1,0 +1,86 @@
+get:
+  summary: Lista komentarzy do wpisu z mikrobloga.
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/limit.yaml'
+  responses:
+    200:
+      description: Komentarze do wpisu z mikrobloga
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/entry_comment.yaml#comment'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+  tags:
+    - Mikroblog - Komentarz
+
+post:
+  summary: Dodawanie nowego komentarza do wpisu na mikroblogu
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_comment.yaml#comment'
+  responses:
+    201:
+      description: Pomyślne dodanie komentarza.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/entry_comment.yaml#comment'
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Mikroblog - Komentarz

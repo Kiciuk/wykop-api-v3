@@ -1,0 +1,7 @@
+name: sort
+in: query
+required: false
+description: Rodzaj sortowania - domyślnie (brak) 'newest'
+schema:
+    type: string
+    enum: [newest, active, commented, digged]

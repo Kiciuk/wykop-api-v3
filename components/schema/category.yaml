@@ -1,0 +1,71 @@
+category:
+  type: object
+  properties:
+    name:
+      description: Nazwa
+      type: string
+      example: Motoryzacja
+    slug:
+      description: Slug
+      type: string
+      example: motoryzacja
+    pathname:
+      description: Przyjazny slug kategorii
+      type: string
+      example: PilkaNozna
+    active:
+      description: Widoczność kategorii
+      type: boolean
+      example: true
+    color:
+      description: Kolor kategorii
+      type: object
+      properties:
+        hex:
+          description: Hex koloru
+          type: string
+          example: "000000"
+        hex_dark:
+          description: Hex koloru w trybie nocnym
+          type: string
+          example: "ffffff"
+    primary_tag:
+      description: Tag wiodący
+      type: string
+      example: bmw
+    media:
+      description: Media
+      type: object
+      properties:
+        icon:
+          description: Ikona
+          type: object
+          $ref: '/components/schemas/photo.yaml#photo'
+    header:
+      description: Strona kategorii
+      type: object
+      properties:
+        title:
+          description: Tytuł
+          type: string
+          example: Świat motoryzacji
+        description:
+          description: Opis
+          type: string
+          example: Źródło najlepszych motyrazycyjnych treści
+        url:
+          description: Reklamowy adres URL
+          type: string
+          example: https://www.bmw.com
+        media:
+          description: Media
+          type: object
+          properties:
+            icon:
+              description: Ikona
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'
+            background:
+              description: Tło
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'

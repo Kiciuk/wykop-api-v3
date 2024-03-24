@@ -1,0 +1,7 @@
+parent:
+  allOf:
+    - $ref: '/components/schemas/parent.yaml#parent'
+    - type: object
+      properties:
+        link:
+          $ref: '/components/schemas/link.yaml#link'

@@ -1,0 +1,24 @@
+get:
+    summary: Lista hitów - znalezisk
+    parameters:
+        - $ref: '/components/parameters/date_year.yaml'
+        - $ref: '/components/parameters/date_month.yaml'
+        - $ref: '/components/parameters/hits.links.sort.yaml'
+        - $ref: '/components/parameters/limit.yaml'
+    responses:
+        200:
+            description: Lista hitów
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '/components/schemas/link.yaml#link'
+                                    type: object
+                            pagination:
+                                $ref: '/components/schemas/pagination.yaml#pagination'
+    tags:
+        - Hity

@@ -1,0 +1,75 @@
+put:
+  summary: Uruchom powiadomienia z obserwowanego tagu.
+  responses:
+    201:
+      description: Tag został dodany do powiadomień.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+    404:
+      description: Nie odnaleziono tagu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: ''
+              key: 0
+    409:
+      description: Podano nieprawidłową wartość, tag nie jest obserwowany przez użytkownika.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: ''
+              key: 0
+  tags:
+    - Obserwowane
+
+delete:
+  summary: Wyłącz powiadomienia z obserwowanego tagu.
+  responses:
+    204:
+      description: Tag został usunięty z powiadomień.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+    404:
+      description: Nie odnaleziono tagu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: ''
+              key: 0
+    409:
+      description: Podano nieprawidłową wartość, lub tag nie jest obserwowany.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: ''
+              key: 0
+  tags:
+    - Obserwowane

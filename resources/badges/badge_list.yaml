@@ -1,0 +1,21 @@
+get:
+  summary: Pobiera listę osiągnięć
+  description: >
+    Zwraca listę wszystkich dostępnych osiągnięć
+  responses:
+    200:
+      description: Lista osiągnięć
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: object
+                    $ref: '/components/schemas/badge.yaml#badge'
+  tags:
+    - Osiągnięcia

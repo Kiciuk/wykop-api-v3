@@ -1,0 +1,46 @@
+get:
+  summary: Lista znalezisk
+  description: >
+    Zwraca listę znalezisk<br/>
+    UWAGA: Parametr page przyjmuje dla użytkowników niezalogowanych int z numerem strony, a dla zalogowanych hash strony.
+    UWAGA2: Standardowa paginacja jest dostępna tylko dla użytkowników niezalogowanych. Paginacja dla użytkowników zalogowanych będzie zwracać hash next dla następnej strony i prev dla poprzedniej.
+    UWAGA3: Dla parametru type=upcoming (wykopalisko) paginacja przyjmuje parametr page jako int z nr strony, zarówno dla użytkowników zalogowanych i niezalogowanych
+  parameters:
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/limit.yaml'
+    - $ref: '/components/parameters/sort.yaml'
+    - $ref: '/components/parameters/type.yaml'
+    - $ref: '/components/parameters/category.yaml'
+    - $ref: '/components/parameters/bucket.yaml'
+  responses:
+    200:
+      description: Lista znalezisk
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  anyOf:
+                    - $ref: '/components/schemas/link.yaml#link'
+                      type: object
+                    - $ref: '/components/schemas/entry.yaml#entry'
+                      type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+    400:
+      description: Osiągnięto limit paginacji.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: 'Search does not serve more than n-th results for query.'
+              key: 0
+  tags:
+    - Linki

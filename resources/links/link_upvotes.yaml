@@ -1,0 +1,38 @@
+get:
+    summary: Lista użytkowników wykopujących oraz zakopujących
+    parameters:
+        - $ref: '/components/parameters/links.id.yaml'
+        - $ref: '/components/parameters/links.vote.type.yaml'
+    responses:
+        200:
+            description: Lista użytkowników
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '/components/schemas/link_upvotes.yaml#link_upvotes'
+                                    type: object
+        400:
+            description: Brak uprawnień. Podany "Type" jest nieprawidłowy.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 400
+                        hash: ''
+                        error:
+                            message:
+                            key: 0
+        404:
+            description: Nie odnaleziono znaleziska.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+    tags:
+        - Linki

@@ -1,0 +1,36 @@
+get:
+  summary: Powiązane tagi
+  parameters:
+    - name: tagName
+      in: path
+      description: Nazwa tagu
+      schema:
+        type: string
+  responses:
+    200:
+      description: Kolekcja powiązanych tagów (max do 10 wyników)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/tag/short_tag.yaml#short_tag'
+                  type: object
+    400:
+      description: Brak tagu lub tag jest za krótki
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: ''
+              key: 0
+
+  tags:
+    - Tagi

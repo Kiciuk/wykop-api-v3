@@ -1,0 +1,75 @@
+get:
+  summary: Lista wersji roboczych linków zalogowanego użytkownika
+  description: Wersje robocze są kasowane po upływie 24h.
+  responses:
+    200:
+      description: Linki w wersji roboczej
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/link_draft.yaml#link_draft'
+                  type: object
+  tags:
+    - Linki - Wersje robocze
+
+post:
+  summary: Dodawanie nowego linku w wersji roboczej krok pierwszy
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                url:
+                  description: Adres URL znaleziska
+                  type: string
+                  example: https://www.youtube.com/watch?v=mzIsfSsZh7I
+                  max: 255
+                  errors: ["not_blank", "too_long", "invalid_url", "not_found", "banned_domain"]
+  responses:
+    201:
+      description: Pomyślne dodanie wersji roboczej.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  key:
+                    description: Identyfikator
+                    type: string
+                    example: 7885e76c46b08eba4e955c35b7c889015f7a59c421548c7b9da49adceaa54be2
+                  similar:
+                    description: Lista podobnych linków.
+                    type: array
+                    items:
+                      $ref: '/components/schemas/link.yaml#link'
+                      type: object
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Linki - Wersje robocze

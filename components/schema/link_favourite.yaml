@@ -1,0 +1,5 @@
+link_favourite:
+  type: object
+  allOf:
+    - $ref: '/components/schemas/link.yaml#link'
+    - $ref: '/components/schemas/favourite_object.yaml#favourite_object'

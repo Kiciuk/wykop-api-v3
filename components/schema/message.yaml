@@ -1,0 +1,49 @@
+message:
+  type: object
+  properties:
+    created_at:
+      description: Data dodania
+      type: string
+      example: "2019-02-25 20:35:18"
+    content:
+      description: Treść wiadomości
+      type: string
+      example: Hej co słychać?
+    type:
+      description: Informacja kto jest autorem wiadomości [0 - zalogowany użytkownik; 1 - rozmówca]
+      type: integer
+      example: 1
+    adult:
+      description: Informacja czy wiadomość jest oznaczona jako treść dla pełnoletnich
+      type: boolean
+      example: false
+    media:
+      description: Media
+      type: object
+      properties:
+        photo:
+          description: Zdjęcie
+          type: object
+          $ref: '/components/schemas/photo.yaml#photo'
+        embed:
+          description: Zewnętrzne źródło
+          type: object
+          $ref: '/components/schemas/embed.yaml#embed'
+    read:
+      description: Informacja czy wiadomość została przeczytana. Jeżeli type 0 to zwraca informację czy rozmówca odczytał wiadomość. Dla type 1 zwraca informację czy użytkownik przeczytał wiadomość.
+      type: boolean
+      example: false
+    key:
+      description: Identyfikator
+      type: string
+      example: oWg3k7gx
+    actions:
+      allOf:
+        - type: object
+          properties:
+            create:
+              type: boolean
+              description: Informacja czy można napisać wiadomość do użytkownika
+            delete:
+              type: boolean
+              description: Informacja czy można usunąć wiadomość

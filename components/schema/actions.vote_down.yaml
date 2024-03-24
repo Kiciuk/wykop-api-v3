@@ -1,0 +1,7 @@
+actions:
+  type: object
+  properties:
+    vote_down:
+      description: Informacja czy użytkownik może zakopać
+      type: boolean
+      example: true

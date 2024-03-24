@@ -1,0 +1,16 @@
+color:
+    description: Kolor
+    type: object
+    properties:
+        name:
+            description: Nazwa koloru
+            type: string
+            example: burgundy
+        hex:
+            description: Hex koloru
+            type: string
+            example: dddddd
+        hex_dark:
+            description: Hex koloru w trybie nocnym
+            type: string
+            example: cccccc

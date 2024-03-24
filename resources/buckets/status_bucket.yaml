@@ -1,0 +1,19 @@
+get:
+  summary: Lista kategorii użytkownika
+  description: |
+    Zwraca listę kategorii użytkownika
+  responses:
+    200:
+      description: Lista kategorii użytkownika
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                    $ref: '/components/schemas/bucket_status.yaml#bucket'
+                    type: object
+  tags:
+    - Kategorie Użytkownika

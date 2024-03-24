@@ -1,0 +1,43 @@
+get:
+  summary: Pobiera pojedyńcze osiągnięcie
+  description: >
+    Zwraca pojedyńcze osiągnięcie
+  parameters:
+    - $ref: '/components/parameters/badge.yaml'
+  responses:
+    200:
+      description: Lista
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                $ref: '/components/schemas/badge.yaml#badge'
+    404:
+      description: Nie znaleziono osiągnięcia
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: invalid_badge
+              key: 0
+    409:
+      description: Nieprawidłowy slug
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: invalid_slug
+              key: 0
+  tags:
+    - Osiągnięcia

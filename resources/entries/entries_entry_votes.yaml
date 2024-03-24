@@ -1,0 +1,132 @@
+get:
+  summary: Użytkownicy, którzy głosowali na wpis
+  description: >
+    Pobiera nazwy użytkowników którzy głosowali na wpis z mikrobloga.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    -
+      name: lite
+      in: query
+      required: false
+      description: Prezentowanie uproszczonej listy użytkowników
+      schema:
+        type: bool
+  responses:
+    200:
+      description: >
+        Lista użytkowników, który oddali głos.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  $ref: '/components/schemas/user.short.yaml#short'
+    404:
+      description: Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog
+
+post:
+  summary: Głosowanie na wpis
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  responses:
+    201:
+      description: Pomyślne oddanie głosu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik głosował wcześniej na wpis lub jest jego autorem.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: User had already vote for this entry.
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog
+
+delete:
+  summary: Cofnięcie głosu na wpis
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne cofnięcie głosu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik nie głosował wcześniej na wpis.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: User hadn't vote for this entry.
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog

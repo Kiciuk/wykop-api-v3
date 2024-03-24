@@ -1,0 +1,72 @@
+link:
+  allOf:
+    - $ref: '/components/schemas/field/editable.yaml#editable'
+    - type: object
+      properties:
+        id:
+          description: Identyfikator powiązanego
+          type: int
+          example: 1234
+        title:
+          description: Tytuł
+          type: string
+          example: George R.R. Martin zabrał głos na temat finału "Gry o Tron"
+        created_at:
+          description: Data utworzenia
+          type: string
+          example: "2019-02-25 20:35:18"
+        author:
+          $ref: '/components/schemas/user.short.yaml#short'
+        media:
+          description: Media dodane do wpisu
+          type: object
+          properties:
+            photo:
+              description: Zdjęcie dodane do wpisu
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'
+        source:
+          type: object
+          properties:
+            label:
+              description: Etykieta źródła
+              type: string
+              example: "dobretytuly.com"
+            url:
+              description: Adres url do źródła
+              type: string
+              example: "https://dobretytuly.com/2019/05/21/george-r-r-martin-zabral-glos-na-temat-finalu-gry-o-tron/"
+        votes:
+          description: Osoby głosujące na wpis
+          type: object
+          properties:
+            up:
+              description: Liczba głosów pozytywnych
+              type: int
+              example: 23
+            down:
+              description: Liczba głosów negatywnych
+              type: int
+              example: 5
+            count:
+              description: Suma głosów
+              type: int
+              example: 18
+        voted:
+          description: Informacja czy zalogowany użytkownik wykopał(1), zakopał(-1) link lub nie wykonał akcji(0)
+          type: int
+          example: 1
+        adult:
+          description: Informacja czy link jest oznaczony jako treść dla pełnoletnich
+          type: boolean
+          example: false
+        actions:
+          $ref: '/components/schemas/actions.link_related.yaml#actions'
+        archive:
+          description: Informacja czy powiązany link pochodzi z archiwum
+          type: bool
+          example: false
+        deleted:
+          description: Zwarace informację czy obiekt jest usunięty. Pole widoczne tylko dla moderatora i administratora.
+          type: boolean
+          example: false

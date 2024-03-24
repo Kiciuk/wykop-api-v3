@@ -1,0 +1,256 @@
+post:
+  summary: Dodawanie nowego linku w wersji roboczej krok drugi
+  parameters:
+    - name: key
+      in: path
+      required: true
+      description: Identyfikator
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Tytuł linku
+                  type: string
+                  example: The Best Upcoming ACTION Movies 2019 & 2020 (Trailer)
+                  min: 10
+                  max: 80
+                  errors: ["not_blank", "too_short", "too_long"]
+                description:
+                  description: Opis linku
+                  type: string
+                  example: |
+                    Top Upcoming Action Movies 2019 Full Trailer Compilation | Subscribe ➤ http://abo.yt/ki | More https://KinoCheck.com
+                    Included in this compilation are Terminator 6: Dark Fate, Rambo 5: Last Blood, Charlie's Angels, Mulan, Gemini Man, Angel Has Fallen, Midway, Star Wars 9: Rise of Skywalker, 21 Bridges, Stuber and Jumanji 3: The Next Level.
+                  min: 10
+                  max: 300
+                  errors: ["too_short", "too_long"]
+                tags:
+                  description: Tagi. Można wysłać do 6 tagów (bez '#').
+                  type: array
+                  items:
+                    type: string
+                  min: 1
+                  max: 6
+                  example: ['nsfw', 'polityka']
+                  errors: ["not_blank", "too_few", "too_many"]
+                photo:
+                  description: Załącznik użytkownika. W celu dodania należy podać "key" pliku z media/photo. Akceptowane są tylko pliki przesłane jako typ `links`.
+                  type: string
+                  example: zn46EaDEVeZYiqlqoIzn4DEVeZYiqlqoI6EaDEVeZYiqlq46Ea
+                  errors: ["invalid"]
+                adult:
+                  description: Wpis tylko dla dorosłych
+                  type: boolean
+                  example: false
+                selected_image:
+                  type: integer
+                  description: Wybrany obrazek z listy
+                  example: 2
+                  min: 1
+                  errors: ["too_few", "too_many"]
+
+  responses:
+    201:
+      description: Pomyślne dodanie linku.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Nie odnaleziono szablonu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Draft not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Linki - Wersje robocze
+
+put:
+  summary: Aktualizacja linku w wersji roboczej
+  parameters:
+    - name: key
+      in: path
+      required: true
+      description: Identyfikator
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Tytuł linku
+                  type: string
+                  example: The Best Upcoming ACTION Movies 2019 & 2020 (Trailer)
+                  max: 80
+                  errors: ["too_long"]
+                description:
+                  description: Opis linku
+                  type: string
+                  example: |
+                    Top Upcoming Action Movies 2019 Full Trailer Compilation | Subscribe ➤ http://abo.yt/ki | More https://KinoCheck.com
+                    Included in this compilation are Terminator 6: Dark Fate, Rambo 5: Last Blood, Charlie's Angels, Mulan, Gemini Man, Angel Has Fallen, Midway, Star Wars 9: Rise of Skywalker, 21 Bridges, Stuber and Jumanji 3: The Next Level.
+                  max: 300
+                  errors: ["too_long"]
+                tags:
+                  description: Tagi. Można wysłać do 6 tagów (bez '#').
+                  type: array
+                  items:
+                    type: string
+                  max: 6
+                  example: ['nsfw', 'polityka']
+                  errors: ["too_many"]
+                photo:
+                  description: Załącznik użytkownika. W celu dodania należy podać "key" pliku z media/photo. Akceptowane są tylko pliki przesłane jako typ `links`.
+                  type: string
+                  example: zn46EaDEVeZYiqlqoIzn4DEVeZYiqlqoI6EaDEVeZYiqlq46Ea
+                  errors: ["invalid"]
+                adult:
+                  description: Wpis tylko dla dorosłych
+                  type: boolean
+                  example: false
+                selected_image:
+                  type: integer
+                  description: Wybrany obrazek z listy
+                  example: 2
+                  min: 1
+                  errors: ["too_few", "too_many"]
+  responses:
+    204:
+      description: Pomyślna edycja wersji roboczej.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Nie odnaleziono szablonu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Draft not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Linki - Wersje robocze
+
+get:
+  summary: Zwraca wersję roboczą linku
+  description: Wersje robocze są kasowane po upływie 24h.
+  parameters:
+    - name: key
+      in: path
+      required: true
+      description: Identyfikator
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Link w wersji roboczej
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/link_draft.yaml#link_draft'
+                type: object
+    404:
+      description: Nie odnaleziono szablonu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Draft not found
+              key: 0
+  tags:
+    - Linki - Wersje robocze
+
+delete:
+  summary: Usuwanie szablonu
+  parameters:
+    - name: key
+      in: path
+      required: true
+      description: Identyfikator
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne usunięcie szablonu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Nie odnaleziono szablonu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Draft not found
+              key: 0
+  tags:
+    - Linki - Wersje robocze

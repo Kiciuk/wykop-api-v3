@@ -1,0 +1,39 @@
+photo:
+    type: object
+    properties:
+        key:
+            description: Unikatowy identyfikator zasobu.
+            type: string
+            example: jnd843hnd7jfnskjdfndjskfbkdjsbsd43tf74hh47sh37fnb3
+        label:
+            description: Etykieta zasobu.
+            type: string
+            example: screenshot
+        mime_type:
+            description: Mime Type.
+            type: string
+            example: image/gif
+        url:
+            description: Bezpośredni adres pod którym znajduje się zasób.
+            type: string
+            example: https://www.wykop.pl/cdn/c3333992/1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2.jpg
+        size:
+            description: Rozmiar zasobu [b].
+            type: integer
+            example: 11858
+        width:
+            description: Szerokość zasobu.
+            type: integer
+            example: 800
+        height:
+            description: Wysokość zasobu.
+            type: integer
+            example: 600
+    required:
+        - label
+        - key
+        - mime_type
+        - url
+        - size
+        - width
+        - height

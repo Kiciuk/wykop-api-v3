@@ -1,0 +1,17 @@
+get:
+  summary: Zwraca username osoby z jaką ostatnio prowadziło się rozmowę.
+  responses:
+    200:
+      description: Ostatnio otwarta konwersacja.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                description: Nazwa użytkownika
+                type: string
+                example: a__s
+
+  tags:
+    - Prywatne wiadomości

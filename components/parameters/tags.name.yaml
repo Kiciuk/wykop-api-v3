@@ -1,0 +1,6 @@
+name: tagName
+in: path
+required: true
+description: Nazwa tagu
+schema:
+  type: string

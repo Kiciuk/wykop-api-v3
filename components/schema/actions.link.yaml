@@ -1,0 +1,16 @@
+actions:
+  allOf:
+    - $ref: '/components/schemas/actions.update_delete.yaml#actions'
+    - $ref: '/components/schemas/actions.vote_up.yaml#actions'
+    - $ref: '/components/schemas/actions.vote_down.yaml#actions'
+    - $ref: '/components/schemas/actions.undo_vote.yaml#actions'
+    - $ref: '/components/schemas/actions.favourites.yaml#actions'
+    - $ref: '/components/schemas/actions.report.yaml#actions'
+    - type: object
+      properties:
+        create_ama:
+          type: boolean
+          description: Informacja czy użytkownik może rozpocząć AMA
+        finish_ama:
+          type: boolean
+          description: Informacja czy użytkownik może zakończyć AMA

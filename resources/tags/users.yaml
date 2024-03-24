@@ -1,0 +1,36 @@
+get:
+    summary: Lista autorów tagu autorskiego
+    parameters:
+        -
+            name: tagName
+            in: path
+            description: Nazwa tagu
+            schema:
+                type: string
+    responses:
+        200:
+            description: Kolekcja autorów tagu (short profile)
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: array
+                                items:
+                                    $ref: '/components/schemas/user.short.yaml#short'
+                                    type: object
+        404:
+            description: Podany tag nie istnieje lub jego dane są niedostępne.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: Not found
+                            key: 0
+    tags:
+        - Tagi

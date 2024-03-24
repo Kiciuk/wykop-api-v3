@@ -1,0 +1,151 @@
+get:
+  summary: Pobranie danych wpisu z mikrobloga
+  description: >
+    Zwraca wpisz z mikrobloga.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Wpis z mikrobloga
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/entry.yaml#entry'
+    404:
+      description: Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog
+
+put:
+  summary: Edycja wpisu na mikroblogu
+  description: >
+    Można modyfikwać tylko własne wpisy. Autor może modyfikować wpis przez 15 minut od daty dodania.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_entry.yaml#entry'
+  responses:
+    200:
+      description: Pomyślna modyfikacja wpisu.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/entry.yaml#entry'
+    400:
+      description: Brak uprawnień do modyfikacji wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Mikroblog
+
+delete:
+  summary: Usuwanie wpisu
+  description: Autor może zawsze usunąć własny wpis.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne usunięcie wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog

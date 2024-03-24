@@ -1,0 +1,7 @@
+name: category
+in: query
+required: false
+description: 'Kategoria'
+schema:
+  type: string
+  example: 'motoryzacja'

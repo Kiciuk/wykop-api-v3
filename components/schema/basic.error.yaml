@@ -1,0 +1,27 @@
+type: object
+properties:
+    code:
+        description: Kod HTTP (duplikat z nagłówka).
+        type: integer
+        example: 403
+    hash:
+        description: Wewnętrzny identifikator błędów. Kody powinny byc zapisane w specjalnej tablicy umożliwiającej odczytanie błędu.
+        type: string
+        example: 7j3hsyt4hj
+    error:
+        description: Główny obiekt błędu dla aplikacji frontend.
+        type: object
+        properties:
+            message:
+                description: Prosty komunikat, bez szczegółów technicznych.
+                type: string
+                example: Username could not be found.
+            key:
+                description: Identyfikator do stack trace zapisanym przez backend np. w redisie. Dla programistów.
+                type: integer
+                example: 5g#pdk
+        required:
+            - message
+required:
+    - code
+    - error

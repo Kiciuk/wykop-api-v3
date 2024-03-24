@@ -1,0 +1,29 @@
+get:
+  summary: Zwraca informację, czy są nowsze wiadomości
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                description: Nowsze wiadomości
+                type: boolean
+                example: false
+    404:
+      description: Nie odnaleziono użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entity not found
+              key: 0
+  tags:
+    - Prywatne wiadomości

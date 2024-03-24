@@ -1,0 +1,147 @@
+post:
+  summary: Dodawanie nowej wiadomości
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/pm/create_message.yaml#message'
+  responses:
+    201:
+      description: Pomyślne dodanie wiadomości.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/pm/message.yaml#message'
+    400:
+      description: Brak uprawnień do komunikacji z użytkownikiem.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entity not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Prywatne wiadomości
+
+get:
+  summary: Lista wiadomości z użytkownikiem
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+    - name: prev_message
+      in: path
+      required: false
+      description: Identyfikator (key) najstarszej widocznej wiadomości. Po jego podaniu zostaną doczytane starsze wiadomości.
+      schema:
+        type: string
+    - name: next_message
+      in: path
+      required: false
+      description: Identyfikator (key) najnowszej widocznej wiadomości. Po jego podaniu zostaną doczytane nowsze wiadomości.
+      schema:
+        type: string
+  responses:
+    200:
+      description: Lista wiadomości.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  user:
+                    $ref: '/components/schemas/user.short.yaml#short'
+                  messages:
+                    type: array
+                    items:
+                      $ref: '/components/schemas/pm/message.yaml#message'
+                      type: object
+                  actions:
+                    type: object
+                    properties:
+                      create:
+                        description: Czy można pisać do użytkownika
+                        type: boolean
+                        example: false
+    404:
+      description: Nie odnaleziono użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entity not found
+              key: 0
+  tags:
+    - Prywatne wiadomości
+
+delete:
+  summary: Usuwa konwersację
+  description: Znika tylko po stronie osoby wykonującej akcję.
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    204:
+      description: Pomyślne wykonanie akcji.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Nie odnaleziono użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entity not found
+              key: 0
+  tags:
+    - Prywatne wiadomości

@@ -1,0 +1,19 @@
+pagination:
+    type: object
+    properties:
+        per_page:
+            description: Liczba wyników na stronie.
+            type: integer
+            example: 25
+        total:
+            description: Łączna liczba wyników.
+            type: integer
+            example: 45
+        total_items:
+            description: Łączna liczba wyników z dziećmi.
+            type: integer
+            example: 90
+    required:
+        - per_page
+        - total
+        - total_items

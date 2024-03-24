@@ -1,0 +1,7 @@
+favourite_object:
+  type: object
+  properties:
+    favourite_id:
+      description: ID elementu z listy ulubionych
+      type: int
+      example: 11

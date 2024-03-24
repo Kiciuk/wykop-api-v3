@@ -1,0 +1,239 @@
+post:
+  summary: Dodawanie nowego podkomentarza do instniejącego komentarza
+  parameters:
+    -
+      $ref: '/components/parameters/links.id.yaml'
+    -
+      name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_comment.yaml#comment'
+  responses:
+    201:
+      description: Pomyślne dodanie komentarza
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/link_comment.yaml#comment'
+    400:
+      description: Niedozwolona akcja (np. próba dodania podkomentarza do innego podkomentarza)
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Forbidden action
+              key: 0
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+    412:
+      description: Wystąpił błąd podczas walidacji. Wykopalisko ma zablokowaną możliwość komentowania
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 412
+            hash: ''
+            error:
+              message: Restricted action
+              key: 0
+  tags:
+    - Linki - Komentarz
+
+get:
+  summary: Pobranie komentarza
+  description: Zwraca komentarz ze znaleziska
+  parameters:
+    -
+      $ref: '/components/parameters/links.id.yaml'
+    -
+      name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Komentarz ze znaleziska
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/link_comment.yaml#comment'
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+  tags:
+    - Linki - Komentarz
+
+put:
+  summary: Edycja komentarza
+  description: Można modyfikwać tylko własne komentarze. Autor może modyfikować 15 minut od daty dodania.
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_comment.yaml#comment'
+  responses:
+    200:
+      description: Pomyślna modyfikacja komentarza.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/link_comment.yaml#comment'
+    400:
+      description: Brak uprawnień do modyfikacji komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Linki - Komentarz
+
+delete:
+  summary: Usuwanie komentarza
+  description: Autor komentarza może usunąć go przez 15 minut od daty dodania, autor znaleziska może usuwać komentarze cały czas.
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne usunięcie komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+  tags:
+    - Linki - Komentarz

@@ -1,0 +1,68 @@
+short:
+    type: object
+    properties:
+        username:
+            description: >
+                Nazwa użytkownika
+            type: string
+            example: piotr-nowak
+        company:
+            description: >
+                Czy profil należy do firmy
+            type: boolean
+            example: false
+        gender:
+            description: >
+                Płeć (m - mężczyzna, f - kobieta)
+            type: string
+            example: m
+        avatar:
+            description: >
+                Avatar (adres url)
+            type: string
+            example: https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?size=400px
+        note:
+            description: >
+                Czy zalogowany użytkownik ma zapisaną notatkę na temat danego użytkownika. Dla niezalogowanego użytkownika zawsze zwraca false.
+            type: boolean
+            example: true
+        online:
+            description: >
+                Czy profil aktualnie online
+            type: boolean
+            example: false
+        status:
+            description: >
+                Stan konta. [active, banned, removed, inactive, suspended, client]
+            type: string
+            example: active
+        color:
+            $ref: '/components/schemas/color.yaml#color'
+        verified:
+            description: >
+                Czy profil został zweryfikowany
+            type: boolean
+            example: false
+        follow:
+            description: >
+                Flaga informująca czy aktualnie zalogowany użytkownik obserwuje wybrany profil
+            type: boolean
+            example: false
+        rank:
+            description: >
+                Pozycja użytkownika w rankingu
+            type: object
+            properties:
+                position:
+                    description: >
+                        Pozycja w rankingu. W przypadku gdy użytkownik nie znajduje się na liście rankingowej zwraca null.
+                    type: int
+                    example: 100
+                    nullable: true
+                trend:
+                    description: >
+                        Wskazanie trendu użytkownika w rankingu. Zwraca 1 gdy użytkownik awansował, 0 gdy nie zmienił miejsca, -1 gdy spadł w rankingu.
+                    type: int
+                    example: 0
+        actions:
+            $ref: '/components/schemas/actions.profile.yaml#actions'

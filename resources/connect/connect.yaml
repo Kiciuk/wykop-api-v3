@@ -1,0 +1,25 @@
+get:
+    summary: Inicjowanie logowania użytkownika przy użyciu WykopConnect
+    description: >
+        Istnieje możliwość zalogowania użytkownika przy użyciu WykopConnect.
+        Aplikacja która próbuje zalogować użytkownika powinna posiadać odpowiednie uprawnienia nadane przez administratora.
+    responses:
+        200:
+            description: >
+                Rozpoczęcie inicjalizacji logowania przez WykopConnect
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    connect_url:
+                                        description: Adres do nadawania uprawnień przez użytkownika.
+                                        type: string
+                                        example: http://www.wykop.pl/connect/ifjdsaklfn43ij90as0idaindlas2134
+                                required:
+                                    - connect_url
+    tags:
+        - Bezpieczeństwo

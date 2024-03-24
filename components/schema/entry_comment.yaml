@@ -1,0 +1,7 @@
+comment:
+  allOf:
+    - $ref: '/components/schemas/comment.yaml#comment'
+    - type: object
+      properties:
+        parent:
+          $ref: '/components/schemas/parent.yaml#parent'

@@ -1,0 +1,6 @@
+name: month
+in: query
+required: false
+description: Miesiąc
+schema:
+    type: int

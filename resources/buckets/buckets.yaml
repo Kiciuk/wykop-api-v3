@@ -1,0 +1,68 @@
+post:
+  summary: Dodanie kategorii użytkownika
+  description: |
+    Użytkownik tworzy swoją kategorię zdefiniowaną z wyników wyszukiwania
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Nazwa kategorii użytkownika
+                  type: string
+                  example: "Tytuł kategorii użytkownika"
+                query:
+                  description: String zawierający treść wyszukiwania
+                  type: string
+                  example: "#polityka treść @user1"
+                  errors: ["too_long", "invalid_query", "invalid_query_too_much_tags", "invalid_query_too_much_users"]
+                default_page:
+                  description: "Domyślna strona, na której powinna się otworzyć kategoria."
+                  type: string
+                  enum: ["home", "upcoming", "entries"]
+                  errors: ["invalid_choice"]
+  responses:
+    201:
+      description: Poprawnie dodano kategorie użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/bucket.yaml#bucket'
+    409:
+      description: Wystąpił błąd. Krotka nie została utworzona.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: invalid_query
+              key: 0
+  tags:
+    - Kategorie Użytkownika
+get:
+  summary: Lista kategorii użytkownika
+  description: |
+    Zwraca listę kategorii użytkownika
+  responses:
+    200:
+      description: Lista kategorii użytkownika
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/bucket.yaml#bucket'
+                  type: object
+  tags:
+    - Kategorie Użytkownika

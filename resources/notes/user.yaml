@@ -1,0 +1,108 @@
+get:
+    summary: Pobranie prywatnej notatki o użytkowniku.
+    description: |
+        Każdy użytkownik posiada możliwość tworzenia prywatnych notatek o innym użytkowniku. Tylko autor notatki widzi jej treść. Notatka może posiadać maksymalnie 255 znaków.
+    parameters:
+        -
+            name: username
+            in: path
+            required: true
+            description: Nazwa użytkownika
+            schema:
+                type: string
+    responses:
+        200:
+            description: Prywatna notatka o użytkowniku
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            data:
+                                type: object
+                                properties:
+                                    username:
+                                        description: Nazwa użytkownika
+                                        type: string
+                                        example: piotr-nowak
+                                    content:
+                                        description: Treść notatki
+                                        type: string
+                                        example: Dobry człowiek
+        404:
+            description: Wystąpił błąd podczas walidacji użytkownika.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: invalid_user
+                            key: 0
+    tags:
+        - Notatki
+
+put:
+    summary: Zapisanie notatki o użytkowniku
+    description: |
+        Notatka może posiadać maksymalnie 255 znaków.
+    parameters:
+        -
+            name: username
+            in: path
+            required: true
+            description: Nazwa użytkownika
+            schema:
+                type: string
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                content:
+                                    description: Treść notatki
+                                    type: string
+                                    max: 255
+                                    example: 'Dobry czlowiek'
+                                    errors: ["too_long"]
+
+    responses:
+        204:
+            description: Notatka została zapisana prawidłowo
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        404:
+            description: Wystąpił błąd podczas walidacji użytkownika.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: invalid_user
+                            key: 0
+        409:
+            description: Wystąpił błąd podczas walidacji formularza.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: Validate
+                            key: 0
+    tags:
+        - Notatki

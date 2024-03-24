@@ -1,0 +1,19 @@
+answer:
+  type: object
+  properties:
+    text:
+      description: Treść odpowiedzi
+      type: string
+      example: Odpowiedź nr 4
+    id:
+      description: Identyfikator odpowiedzi
+      type: int
+      example: 4
+    count:
+      description: Liczba osób głosujących na tą odpowiedź
+      type: int
+      example: 67
+    voted:
+        description: Informacja czy użytkownik zagłosował na tą konkretną odpowiedź [1 - użytkownik głosował; 0 - użytkownik nie głosował]
+        type: int
+        example: 0

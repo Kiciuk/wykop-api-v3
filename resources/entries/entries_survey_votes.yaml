@@ -1,0 +1,77 @@
+post:
+  summary: Głosowanie na ankietę
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                vote:
+                  description: Identyfikator odpowiedzi
+                  type: Integer
+                  example: 4
+                  min: 1
+                  max: 10
+                  errors: ["not_blank", "invalid_type", "too_low", "too_much", "invalid", "not_in_range"]
+              required:
+                - vote
+
+  responses:
+    201:
+      description: Pomyślne oddanie głosu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik głosował wcześniej na ankietę lub jest autorem ankiety.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: User had already vote for this survey.
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu lub ankiety.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Mikroblog - Ankieta

@@ -1,0 +1,10 @@
+name: domains
+in: query
+required: false
+description: 'Filtrowanie wyników do wybranych domen.'
+schema:
+  type: array
+  items:
+    type: string
+    format: hostname
+  example: ["geekweek.pl", "onet.pl"]

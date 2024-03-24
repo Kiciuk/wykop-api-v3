@@ -1,0 +1,104 @@
+get:
+  summary: Lista komentarzy do znaleziska
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/limit.yaml'
+    - name: sort
+      in: query
+      required: false
+      description: >
+        Rodzaj sortowania - domyślnie (brak) 'newest'.
+      schema:
+        type: string
+        enum: [ best, newest, oldest ]
+    - name: ama
+      in: query
+      description: >
+        Tryb AMA. Działa tylko dla znalezisk posiadających tag `#ama`.
+      schema:
+        type: boolean
+        default: false
+
+  responses:
+    200:
+      description: Komentarze do znaleziska
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/link_comment.yaml#comment'
+                  type: object
+              pagination:
+                $ref: '/components/schemas/pagination_items.yaml#pagination'
+  tags:
+    - Linki - Komentarz
+
+post:
+  summary: Dodawanie nowego komentarza do znaleziska
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_comment.yaml#comment'
+  responses:
+    201:
+      description: Pomyślne dodanie komentarza
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/link_comment.yaml#comment'
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+    412:
+      description: Wystąpił błąd podczas walidacji. Wykopalisko ma zablokowaną możliwość komentowania
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 412
+            hash: ''
+            error:
+              message: Restricted action
+              key: 0
+  tags:
+    - Linki - Komentarz

@@ -1,0 +1,6 @@
+name: badge_slug
+in: path
+required: true
+description: Slug osiągnięcia
+schema:
+  type: string

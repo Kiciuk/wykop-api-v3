@@ -1,0 +1,31 @@
+get:
+  summary: Lista tagów autorskich użytkownika
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    200:
+      description: Lista tagów
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '/components/schemas/tag/short_tag.yaml#short_tag'
+                  type: object
+    404:
+      description: Wystąpił błąd podczas walidacji. Podany użytkownik nie istnieje lub jego dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: invalid_user
+              key: 0
+  tags:
+    - Profile

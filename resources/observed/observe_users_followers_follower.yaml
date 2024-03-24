@@ -1,0 +1,51 @@
+post:
+  summary: Dodawanie nowego użytkownika do obserwowanych
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    204:
+      description: Pomyślnie dodano użytkownika do obserwowanych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Taki użytkowniki jest już na liście obserwowanych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+    404:
+      description: Nie odnaleziono użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+  tags:
+    - Obserwowane
+
+delete:
+  summary: Usuwanie użytkownika z obserwowanych
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    204:
+      description: Pomyślnie usunięto użytkownika z obserwowanych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Takiego użytkownika nie ma na liście obserwowanych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+    404:
+      description: Nie odnaleziono użytkownika
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+  tags:
+    - Obserwowane

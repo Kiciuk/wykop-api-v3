@@ -1,0 +1,43 @@
+post:
+  summary: Dodawanie nowego artykułu
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_article.yaml#article'
+  responses:
+    201:
+      description: Pomyślnie dodano artykuł.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  key:
+                    description: Identyfikator do draftu linku
+                    type: string
+                    example: 7885e76c46b08eba4e955c35b7c889015f7a59c421548c7b9da49adceaa54be2
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Artykuły

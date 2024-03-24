@@ -1,0 +1,4 @@
+entry_comment_favourite:
+  allOf:
+    - $ref: '/components/schemas/entry_comment.yaml#comment'
+    - $ref: '/components/schemas/favourite_object.yaml#favourite_object'

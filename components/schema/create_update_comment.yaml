@@ -1,0 +1,26 @@
+comment:
+  type: object
+  properties:
+    content:
+      description: >
+        Treść własna użytkownika. Treść może być pusta w przypadku dodania innych multimediów. W przypadku samej treści musi zawierać min. 5 znaków.
+      type: string
+      example: '**foobar** __foobar__ [lorem](https://www.wykop.pl) impsum!!! #nsfw #wykop'
+      errors: ["too_short"]
+    embed:
+      description: >
+        Unikatowy identyfikator pliku.
+      type: string
+      example: 1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2
+      errors: ["invalid"]
+    photo:
+      description: >
+        Załącznik użytkownika. W celu dodania należy podać "key" pliku z media/photo. Akceptowane są tylko pliki przesłane jako typ `comments`.
+      type: string
+      example: e07843ss3fbe9cb4saeed0asdfsdfc64b9a4df6084199b39d2
+      errors: ["invalid"]
+    adult:
+      description: >
+        Komentarz tylko dla dorosłych
+      type: boolean
+      example: false

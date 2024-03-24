@@ -1,0 +1,70 @@
+post:
+  summary: Ustawia avatar użytkownika
+  description: |
+    Użytkownik posiada możliwość ustawienia avatara.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                avatar:
+                  description: Avatar użytkownika. W celu dodania należy podać key pliku z CDN. Akceptowane są tylko pliki przesłane jako typ `settings`.
+                  type: string
+                  example: zn46EaDEVeZYiqlqoIzn4DEVeZYiqlqoI6EaDEVeZYiqlq46Ea
+                  errors: ["not_blank", "invalid"]
+              required:
+                - avatar
+  responses:
+    204:
+      description: Avatar został ustawiony.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak wymaganych uprawnień.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza. Avatar nie została ustawiony.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                avatar:
+                  - "invalid"
+              key: 0
+  tags:
+    - Ustawienia
+delete:
+  summary: Usuwa avatar użytkownika
+  description: |
+    Użytkownik posiada możliwość usunięcia avatara.
+  responses:
+    204:
+      description: Poprawne usunięcie avataru
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+  tags:
+    - Ustawienia

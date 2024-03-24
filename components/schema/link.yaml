@@ -1,0 +1,118 @@
+link:
+  allOf:
+    - $ref: '/components/schemas/field/editable.yaml#editable'
+    - type: object
+      properties:
+        id:
+          description: Identyfikator linka
+          type: int
+          example: 1234
+        created_at:
+          description: Data utworzenia
+          type: string
+          example: "2019-03-03 12:12:12"
+        title:
+          description: Tytuł
+          type: string
+          example: George R.R. Martin zabrał głos na temat finału "Gry o Tron"
+        slug:
+          description: Czytelna wersja linku
+          type: string
+          example: "george-r-r-martin-zabral-glos-na-temat-finalu-gry-o-tron"
+        description:
+          description: Opis
+          type: string
+          example: "Pracuję inaczej niż David i Dan, nie zapominajcie o tym..."
+        source:
+          type: object
+          properties:
+            label:
+              description: Etykieta źródła
+              type: string
+              example: "dobretytuly.com"
+            url:
+              description: Adres url do źródła
+              type: string
+              example: "https://dobretytuly.com/2019/05/21/george-r-r-martin-zabral-glos-na-temat-finalu-gry-o-tron/"
+            type:
+              description: Zwraca typ linku. Obecnie możliwe typy to "anchor" oraz "article"
+              type: string
+              example: "anchor"
+            type_id:
+              description: Zwraca id dla typu linku. Dla "anchor" zwraca ID linku, dla "article" - id artykułu
+              type: int
+              example: 15
+        author:
+          $ref: '/components/schemas/user.short.yaml#short'
+        published_at:
+          description: Data publikacji na głównej
+          type: string
+          example: "2019-03-03 12:12:12"
+        votes:
+          type: object
+          properties:
+            up:
+              description: Liczba wykopów
+              type: int
+              example: 12
+            down:
+              description: Liczba zakopów
+              type: int
+              example: 1876
+            count:
+              description: Suma głosów
+              type: int
+              example: -1864
+        voted:
+          description: Informacja czy użytkownik zagłosował na znalezisko [1 - użytkownik głosował; 0 - użytkownik nie głosował]
+          type: int
+          example: 1
+        comments:
+          type: object
+          properties:
+            hot:
+              description: Informacja czy komentarze są gorące
+              type: bool
+              example: false
+            count:
+              description: Liczba komentarzy
+              type: int
+              example: 7
+        tags:
+          description: Tagi
+          type: array
+          example: ['nsfw', 'polityka']
+        hot:
+          description: Informacja czy link jest gorący
+          type: bool
+          example: false
+        adult:
+          description: Informacja czy link jest oznaczony jako treść dla pełnoletnich
+          type: boolean
+          example: false
+        media:
+          description: Media dodane do linku
+          type: object
+          properties:
+            photo:
+              description: Zdjęcie dodane do linku
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'
+        deletable:
+          description: Informacja czy użytkownik może usunąć link
+          type: boolean
+          example: false
+        resource:
+          description: Rodzaj zasobu
+          type: string
+          example: 'link'
+        actions:
+          $ref: '/components/schemas/actions.link.yaml#actions'
+        archive:
+          description: Informacja czy link pochodzi z archiwum
+          type: bool
+          example: false
+        deleted:
+          description: Zwarace informację czy obiekt jest usunięty. Pole widoczne tylko dla moderatora i administratora.
+          type: boolean
+          example: false

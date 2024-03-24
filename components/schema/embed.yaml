@@ -1,0 +1,58 @@
+embed:
+  type: object
+  properties:
+    key:
+      description: >
+        Unikatowy identyfikator
+      type: string
+      example: 1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2
+    type:
+      description: >
+        Typ źródła. Dostępne są youtube, twitter, instagram, gfycat, streamable.
+      type: string
+      example: youtube
+    url:
+      description: >
+        Adres pliku embed
+      type: string
+      example: https://www.youtube.com/watch?v=ZkXq44hGeEE
+    thumbnail:
+      description: >
+        Adres pliku z podglądem embed. Podgląd nie zawsze jest dostępny.
+      type: string
+      example: 'https://cdn.wykop.pl/c3201142/comment_DEVeZYiqlqoIzn46Ealo4jQa57uTAoLi.jpg'
+    video_metadata:
+      description: >
+        Informacje o pliku wideo
+      type: object
+      properties:
+        title:
+          description: >
+            Tytuł wideo
+          type: string
+          example: 'Tytuł wideo'
+        description:
+          description: >
+            Opis wideo
+          type: string
+          example: 'Opis wideo'
+        video_id:
+          description: >
+            Unikatowy identyfikator wideo w serwisie źródłowym
+          type: string
+          example: 'ZkXq44hGeEE'
+        published_at:
+          description: >
+            Data publikacji wideo
+          type: string
+          example: "2019-03-03 12:12:12"
+        duration_in_seconds:
+          description: >
+            Czas trwania wideo w sekundach
+          type: integer
+          example: 60
+  required:
+    - key
+    - type
+    - url
+    - thumbnail

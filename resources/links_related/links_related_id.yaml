@@ -1,0 +1,125 @@
+delete:
+  summary: Usunięcie powiązanego
+  description: Przez 15 minut autor lub administrator może usunąć powiązane
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - $ref: '/components/parameters/links.related.yaml'
+  responses:
+    204:
+      description: Usunięto powiązane
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Upłynął czas na usunięcie powiązanego
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: 'Access denied'
+              key: 0
+    404:
+      description: Powiązane nie istnieje
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: 'Related not found'
+              key: 0
+  tags:
+    - Linki - Powiązane
+
+put:
+  summary: Aktualizacja powiązanego
+  description: Przez 15 (n) minut autor lub administrator może zaktualizować powiązane
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - $ref: '/components/parameters/links.related.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Opis powiązanego
+                  type: string
+                  minLength: 3
+                  maxLength: 110
+                  errors: ["not_blank", "too_short", "too_long", "censure"]
+                url:
+                  description: Adres url do powiązanego
+                  type: string
+                  minLength: 4
+                  maxLength: 255
+                  errors: ["not_blank", "too_short", "too_long", "duplicate"]
+                adult:
+                  description: Informacja czy powiązany jest 18+
+                  type: bool
+              required:
+                - title
+                - url
+                - adult
+        example:
+          data:
+            title: Parov Stelar - Live at Sziget 2018 (Full Show)
+            url: https://www.youtube.com/watch?v=I5AOg8rTGHU
+            adult: false
+  responses:
+    201:
+      description: Dane zostały zaktualizowane
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Operacja nie powiodła się
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: 'Invalid data'
+              key: 0
+    404:
+      description: Powiązane nie istnieje
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: 'Not found'
+              key: 0
+    409:
+      description: Podany adres został już dodany do powiązanych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: "Validate"
+              key: 0
+  tags:
+    - Linki - Powiązane

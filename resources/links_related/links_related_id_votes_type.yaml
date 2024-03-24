@@ -1,0 +1,53 @@
+post:
+  summary: Głosowanie na jedno powiązane
+  description: |
+    Pozwala plusować lub minusować powiązany element
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - $ref: '/components/parameters/links.related.yaml'
+    - $ref: '/components/parameters/links.vote.type.yaml'
+  responses:
+    201:
+      description: Powiązane dodane poprawnie
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Niepoprawny typ głosu
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: 'Invalid type'
+              key: 0
+    404:
+      description: Link lub powiązane nie istnieje
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: 'Invalid data'
+              key: 0
+    409:
+      description: Wystąpił błąd podczas głosowania na powiązane. Na przykład użytkownik próbuje zaplusować dwa razy to samo powiązane
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: 'Already voted'
+              key: 0
+  tags:
+    - Linki - Powiązane

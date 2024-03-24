@@ -1,0 +1,69 @@
+post:
+  summary: Zakopanie znaleziska
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - name: reason
+      in: path
+      required: true
+      description: Powód zakopania [1 - duplikat, 2 - spam, 3 - informacja nieprawidłowa, 4 - treść nieodpowiednia, 5 - nie nadaje się]
+      schema:
+        type: integer
+        enum: [1, 2, 3, 4, 5]
+  responses:
+    204:
+      description: Akcja zakończona pomyślnie
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik nie może głosować na własne znaleziska, błędny powód lub znalezisko archiwalne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Wystąpił błąd podczas walidacji. Podane znalezisko nie istnieje lub jego dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+    409:
+      description: >
+        Wystąpił błąd podczas walidacji. Użytkownik próbuje wykopać już wykopane znalezisko lub użytkownik próbuje zakopać już zakopane znalezisko.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Link already digged
+              key: 0
+    412:
+      description: Wystąpił błąd podczas walidacji. Wykopalisko ma zablokowaną możliwość zakopywania
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 412
+            hash: ''
+            error:
+              message: Restricted action
+              key: 0
+  tags:
+    - Linki

@@ -1,0 +1,8 @@
+name: type
+in: query
+required: false
+description: Rodzaj
+schema:
+    type: string
+    default: 'all'
+    enum: [all, author, link, entry]

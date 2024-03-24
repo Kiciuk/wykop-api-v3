@@ -1,0 +1,44 @@
+get:
+  summary: Liczba nowszych wpisów
+  description: >
+    Zwraca liczbę nowszych wpisów.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - $ref: '/components/parameters/category.yaml'
+  responses:
+    200:
+      description: >
+        Liczba nowszych wpisów.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  count:
+                    description: >
+                      Liczba nowszych wpisów.
+                    type: int
+                    example: 6
+    404:
+      description: >
+        Nie odnaleziono wpisu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog

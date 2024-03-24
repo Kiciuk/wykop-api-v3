@@ -1,0 +1,98 @@
+post:
+    summary: Dodanie nowego współautora tagu (głównego dodaje moderator)
+    parameters:
+        -
+            name: tagName
+            in: path
+            description: Nazwa tagu
+            schema:
+                type: string
+        -
+            name: username
+            in: path
+            description: Nazwa użytkownika
+            schema:
+                type: string
+    responses:
+        201:
+            description: Współautor został prawidłowo dodany.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        400:
+            description: Brak wymaganych uprawnień.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 400
+                        hash: ''
+                        error:
+                            message: Access denied
+                            key: 0
+        404:
+            description: Podany tag nie istnieje lub jego dane są niedostępne.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: Not found
+                            key: 0
+    tags:
+        - Tagi
+
+delete:
+    summary: Usuwanie współautora tagu (głównego dodaje moderator)
+    description: Współautor może usunąć samego siebie.
+    parameters:
+        -
+            name: tagName
+            in: path
+            description: Nazwa tagu
+            schema:
+                type: string
+        -
+            name: username
+            in: path
+            description: Nazwa użytkownika
+            schema:
+                type: string
+    responses:
+        204:
+            description: Współautor został usunięty.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.nocontent.yaml'
+        400:
+            description: Brak wymaganych uprawnień.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 400
+                        hash: ''
+                        error:
+                            message: Access denied
+                            key: 0
+        404:
+            description: Podany tag nie istnieje lub jego dane są niedostępne.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 404
+                        hash: ''
+                        error:
+                            message: Not found
+                            key: 0
+    tags:
+        - Tagi

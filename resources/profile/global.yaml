@@ -1,0 +1,30 @@
+get:
+  summary: Pobranie danych publicznych danego użytkownika.
+  description: |
+    Użytkownicy posiadają możliwość ustawienia na swoim profilu danych, do których dostęp posiada każdy użytkownik portalu, nawet niezalogowany.
+  parameters:
+    - $ref: '/components/parameters/username.yaml'
+  responses:
+    200:
+      description: Publiczne dane wybranego użytkownika
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/user.full.yaml#full'
+    404:
+      description: Wystąpił błąd podczas walidacji. Podany użytkownik nie istnieje lub jego dane są niedostępne.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: User not exist
+              key: 0
+  tags:
+    - Profile

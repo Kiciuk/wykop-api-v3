@@ -1,0 +1,155 @@
+get:
+  summary: Szczegóły znaleziska
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  responses:
+    200:
+      description: Znalezisko
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/link_details.yaml#link_details'
+                type: object
+      404:
+        description: Podane znalezisko nie istnieje lub jego dane są niedostępne.
+        content:
+          application/json:
+            schema:
+              $ref: '/components/schemas/basic.error.yaml'
+            example:
+              code: 404
+              hash: ''
+              error:
+                message: Not found
+                key: 0
+  tags:
+    - Linki
+
+put:
+  summary: Edycja znaleziska
+  description: >
+    Można modyfikować tylko własne znaleziska. Autor może modyfikować wpis 15 minut od daty dodania. Link nie możne się znajdować na stronie głwnej.
+    UWAGA: Gdy znalezisko ma ustalone zdjęcie, a w edycji atrybut "photo" nie zostanie przesłany lub będzie przesłany jako null - zdjęcie zostanie usunięte.
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                title:
+                  description: Tytuł linku
+                  type: string
+                  example: The Best Upcoming ACTION Movies 2019 & 2020 (Trailer)
+                  min: 10
+                  max: 80
+                  errors: ["not_blank", "too_short", "too_long"]
+                description:
+                  description: Opis linku
+                  type: string
+                  example: |
+                    Top Upcoming Action Movies 2019 Full Trailer Compilation | Subscribe ➤ http://abo.yt/ki | More https://KinoCheck.com
+                    Included in this compilation are Terminator 6: Dark Fate, Rambo 5: Last Blood, Charlie's Angels, Mulan, Gemini Man, Angel Has Fallen, Midway, Star Wars 9: Rise of Skywalker, 21 Bridges, Stuber and Jumanji 3: The Next Level.
+                  min: 10
+                  max: 300
+                  errors: ["too_short", "too_long"]
+                tags:
+                  description: Tagi. Można wysłać do 6 tagów (bez '#').
+                  type: array
+                  items:
+                    type: string
+                  max: 6
+                  example: ['nsfw', 'polityka']
+                  errors: ["not_blank", "too_few", "too_many"]
+                photo:
+                  description: Załącznik użytkownika. W celu dodania należy podać "key" pliku z media/photo. Akceptowane są tylko pliki przesłane jako typ `links`.
+                  type: string
+                  example: zn46EaDEVeZYiqlqoIzn4DEVeZYiqlqoI6EaDEVeZYiqlq46Ea
+                  errors: ["invalid"]
+                adult:
+                  description: Znalezisko tylko dla dorosłych
+                  type: boolean
+                  example: false
+  responses:
+    204:
+      description: Pomyślne edycja.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Podane znalezisko nie istnieje.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Linki
+
+delete:
+  summary: Usuwanie znaleziska
+  description: Można usuwać tylko własne znalezisko. Autor może usuwać znalezisko 15 minut od daty dodania. Znalezisko nie możne się znajdować na stronie głównej.
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+  responses:
+    204:
+      description: Pomyślne usunięcie znaleziska.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia znaleziska.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Podane znalezisko nie istnieje.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+  tags:
+    - Linki

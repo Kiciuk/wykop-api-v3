@@ -1,0 +1,25 @@
+pm:
+  type: object
+  properties:
+    type:
+      description: Rodzaj powiadomienia
+      type: string
+      example: pm
+    id:
+      description: Identyfikator powiadomienia jako hash
+      type: string
+      example: 1Vj36OrG
+    read:
+      description: Flaga informująca czy powiadomienie zostało już przeczytane
+      type: integer
+      example: 0
+    created_at:
+      description: Data dodania powiadomienia
+      type: string
+      example: '2019-02-25 20:35:11'
+    user:
+      $ref: '/components/schemas/user.short.yaml#short'
+    content:
+      description: Treść wiadomości
+      type: string
+      example: Hej co słychać?

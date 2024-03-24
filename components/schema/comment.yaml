@@ -1,0 +1,113 @@
+comment:
+  allOf:
+    - $ref: '/components/schemas/field/editable.yaml#editable'
+    - type: object
+      properties:
+        id:
+          description: Id
+          type: int
+          example: 1
+        author:
+          $ref: '/components/schemas/user.short.yaml#short'
+        device:
+          description: >
+            Urządzenie z jakiego napisano komentarz.
+          type: string
+          example: Android
+        created_at:
+          description: >
+            Data utworzenia komentarza.
+          type: string
+          example: 2019-02-25 20:35
+        voted:
+          description: >
+            Informacja czy użytkownik zagłosował [1 - użytkownik głosował; 0 - użytkownik nie głosował].
+          type: int
+          example: 0
+        content:
+          description: >
+            Treść komentarza nie zawierająca html.
+          type: string
+          example: Oto treść komentarza, która wyświetla się na stronie
+        media:
+          description: >
+            Media dodane do komentarza.
+          type: object
+          properties:
+            photo:
+              description: >
+                Zdjęcie dodane do komentarza.
+              type: object
+              $ref: '/components/schemas/photo.yaml#photo'
+            embed:
+              description: >
+                Zewnętrzne źródło.
+              type: object
+              $ref: '/components/schemas/embed.yaml#embed'
+        adult:
+          description: >
+            Komentarz dostępny tylko dla dorosłych.
+          type: boolean
+          example: false
+        tags:
+          description: >
+            Tagi wykorzystane w komentarzu.
+          type: array
+          example: ['nsfw', 'polityka']
+        favourite:
+          description: >
+            Informacja czy użytkownik dodał komentarz do ulubionych.
+          type: boolean
+          example: false
+        votes:
+          description: >
+            Osoby głosujące na komentarz.
+          type: object
+          properties:
+            up:
+              description: >
+                Liczba głosów pozytywnych.
+              type: integer
+              example: 23
+            down:
+              description: >
+                Liczba głosów negatywnych.
+              type: integer
+              example: 5
+            users:
+              description: >
+                Użytkownicy głosujący na komentarz.
+              type: array
+              items:
+                type: object
+                $ref: '/components/schemas/user.short.yaml#short'
+        deletable:
+          description: >
+            Informacja czy użytkownik może usunąć komentarz.
+          type: boolean
+          example: false
+        blacklist:
+          type: bool
+          description: >
+            Flaga zwraca informacje czy komentarz znajduje sie na czarnej liście.
+          example: false
+        deleted:
+          type: string
+          description: >
+            Zwraca informacje przez kogo został usunięty komentarz [null, author, host, moderator].
+          example: host
+        resource:
+          type: string
+          description: >
+            Zwraca typ resource elementu.
+          example: "entry_comment"
+        actions:
+          $ref: '/components/schemas/actions.comment.yaml#actions'
+        archive:
+          description: Informacja czy komentarz pochodzi z archiwum
+          type: bool
+          example: false
+        slug:
+          description: Slug tworzony z treści komentarza
+          type: string
+          example: "george-r-r-martin-zabral-glos-na-temat-finalu-gry-o-tron"

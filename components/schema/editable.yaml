@@ -1,0 +1,7 @@
+editable:
+  type: object
+  properties:
+    editable:
+      description: Informacja czy użytkownik ma prawo do edycji
+      type: boolean
+      example: false

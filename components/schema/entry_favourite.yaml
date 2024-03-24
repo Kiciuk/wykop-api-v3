@@ -1,0 +1,5 @@
+entry_favourite:
+  type: object
+  allOf:
+    - $ref: '/components/schemas/entry.yaml#entry'
+    - $ref: '/components/schemas/favourite_object.yaml#favourite_object'

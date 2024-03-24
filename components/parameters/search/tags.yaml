@@ -1,0 +1,9 @@
+name: tags
+in: query
+required: false
+description: 'Filtrowanie wyników po wybranych tagach. Nazwa tagu może być poprzedzona # ale nie musi.'
+schema:
+  type: array
+  items:
+    type: string
+  example: ["nsfw", "#tech", "#it"]

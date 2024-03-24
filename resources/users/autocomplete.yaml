@@ -1,0 +1,50 @@
+get:
+  summary: Podpowiada użytkowników po nickname
+  parameters:
+    - name: query
+      in: query
+      description: Zapytanie
+      schema:
+        type: string
+  responses:
+    200:
+      description: Kolekcja wyszukanych użytkowników
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      description: Nazwa użytkownika
+                      type: string
+                      example: m__b
+                    color:
+                      $ref: '/components/schemas/color.yaml#color'
+                    gender:
+                      description: Płeć użytkownika
+                      type: string
+                      example: m
+                      nullable: true
+                    avatar:
+                      description: Avatar użytkownika
+                      type: string
+                      example: https://cdn.wykop.pl/c3333992/1fde707843ss3fbe9cb4eed0asdfsdfc64ab9a4df6084199b39d2.jpg
+                    followers_qty:
+                      description: Liczba obserwujących użytkowników danego użytkownika
+                      type: integer
+                      example: 0
+                  required:
+                    - username
+                    - color
+                    - gender
+                    - avatar
+                    - followers_qty
+    400:
+      description: Brak parametru query lub parametr zbyt krótki
+  tags:
+    - Użytkownicy

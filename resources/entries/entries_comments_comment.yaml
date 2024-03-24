@@ -1,0 +1,170 @@
+get:
+  summary: Pobranie komentarza z mikroblogu
+  description: |
+    Zwraca komentarz z mikroblogu.
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Komentarz z mikroblogu
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/entry_comment.yaml#comment'
+    404:
+      description: Nie odnaleziono wpisu lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog - Komentarz
+
+put:
+  summary: Edycja komentarza na mikroblogu
+  description: >
+    Można modyfikwać tylko własne komentarze. Autor może modyfikować komentarz 15 minut od daty dodania.
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '/components/schemas/create_update_comment.yaml#comment'
+  responses:
+    200:
+      description: Pomyślna modyfikacja komentarza.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/entry_comment.yaml#comment'
+    400:
+      description: Brak uprawnień do modyfikacji komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: Validate
+              data:
+                media:
+                  - "invalid"
+              key: 0
+  tags:
+    - Mikroblog - Komentarz
+
+delete:
+  summary: Usuwanie komentarza
+  description: >
+    Autor komentarza może go usunąć 15 minut od daty dodania lub autor wpisu przez cały czas.
+  parameters:
+    - name: entryId
+      in: path
+      required: true
+      description: Identyfikator wpisu
+      schema:
+        type: integer
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne usunięcie komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Brak uprawnień do usunięcia komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Access denied
+              key: 0
+    404:
+      description: Nie odnaleziono wpisu lub komentarza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Entry not found
+              key: 0
+  tags:
+    - Mikroblog - Komentarz

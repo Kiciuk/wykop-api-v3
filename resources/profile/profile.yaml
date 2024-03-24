@@ -1,0 +1,28 @@
+get:
+  summary: Pobranie danych publicznych i prywatnych zalogowanego użytkownika.
+  description: |
+    Użytkownicy posiadaja dane publiczne i prywatne, zwracane są tutaj oba typy danych. Zmienić dane można w settings/profile.
+  responses:
+    200:
+      description: Publiczne i prywatne dane zalogowanego użytkownika
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '/components/schemas/user.full.private.yaml#full'
+    404:
+      description: Wystąpił błąd podczas walidacji użytkownika. ("invalid_user" - brak konta (key = 0), "removed_user" - konto usunięte przez użytkownika (key = 1))
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: removed_user
+              key: 1
+  tags:
+    - Profile

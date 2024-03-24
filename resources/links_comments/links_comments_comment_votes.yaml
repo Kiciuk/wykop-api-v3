@@ -1,0 +1,43 @@
+delete:
+  summary: Cofnięcie głosu na komentarz
+  parameters:
+    - $ref: '/components/parameters/links.id.yaml'
+    - name: commentId
+      in: path
+      required: true
+      description: Identyfikator komentarza
+      schema:
+        type: integer
+  responses:
+    204:
+      description: Pomyślne cofnięcie głosu.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Użytkownik nie głosował wcześniej na komentarz.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: User hadn't vote
+              key: 0
+    404:
+      description: Nie odnaleziono znaleziska lub komentarza
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Data not found
+              key: 0
+  tags:
+    - Linki - Komentarz

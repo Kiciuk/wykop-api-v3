@@ -1,0 +1,99 @@
+put:
+    summary: Ustawienie danych publicznie dostępnych przez użytkownika.
+    description: |
+        Każdy użytkownik serwisu posiada publiczne informacje, które widzą również osoby niezalogowane.
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        data:
+                            type: object
+                            properties:
+                                name:
+                                    description: Publiczna nazwa użytkownika
+                                    type: string
+                                    example: Jan Kowalski
+                                    minLength: 3
+                                    maxLength: 69
+                                    errors: ["too_short", "too_long"]
+                                gender:
+                                    description: Płeć (m - mężczyzna, f - kobieta) - Można ustawić tylko raz.
+                                    type: string
+                                    example: m
+                                city:
+                                    description: Miasto
+                                    type: string
+                                    example: Poznań
+                                    minLength: 3
+                                    maxLength: 45
+                                    errors: ["too_short", "too_long"]
+                                website:
+                                    description: Strona internetowa użytkownika
+                                    type: string
+                                    example: devkop.pl
+                                    minLength: 3
+                                    maxLength: 60
+                                    pattern: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+                                    errors: ["too_short", "too_long", "invalid_format"]
+                                public_email:
+                                    description: Publicznie widoczny adres email
+                                    type: string
+                                    example: devkop@devkop.pl
+                                    minLength: 6
+                                    maxLength: 150
+                                    errors: ["too_short", "too_long", "censure", "invalid_format", "black_list"]
+                                facebook:
+                                    description: Adres do profilu na Facebook
+                                    type: string
+                                    example: facebook.pl
+                                    minLength: 3
+                                    maxLength: 255
+                                    pattern: /^http(s)?:\/\/(www\.)?(facebook|fb)\.com\/[A-z0-9_\-\.]+\/?$/
+                                    errors: ["too_short", "too_long", "invalid_format"]
+                                twitter:
+                                    description: Adres do profilu na Twitter
+                                    type: string
+                                    example: facebook.pl
+                                    minLength: 3
+                                    maxLength: 255
+                                    pattern: /^http(s)?:\/\/(.*\.)?twitter\.com\/[A-z0-9_]+\/?$/
+                                    errors: ["too_short", "too_long", "invalid_format"]
+                                instagram:
+                                    description: Adres do profilu na Instagram
+                                    type: string
+                                    example: facebook.pl
+                                    minLength: 3
+                                    maxLength: 255
+                                    pattern: /^http(?:s)?:\/\/(?:www\.)?instagram\.com\/([a-zA-Z0-9_]+)(\/)?$/
+                                    errors: ["too_short", "too_long", "invalid_format"]
+                                about:
+                                    description: Opis użytkownika
+                                    type: string
+                                    example: Poznań
+                                    minLength: 1
+                                    maxLength: 300
+                                    errors: ["too_short", "too_long"]
+
+    responses:
+        204:
+            description: Informacje publiczne zostały zapisane.
+        409:
+            description: Wystąpił błąd podczas walidacji formularza. Krotka nie została dodana.
+            content:
+                application/json:
+                    schema:
+                        $ref: '/components/schemas/basic.error.yaml'
+                    example:
+                        code: 409
+                        hash: ''
+                        error:
+                            message: Validate
+                            data:
+                                public_email:
+                                    - "too_short"
+                            key: 0
+    tags:
+        - Ustawienia

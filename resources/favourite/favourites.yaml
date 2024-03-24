@@ -1,0 +1,131 @@
+post:
+  summary: Dodawanie nowego elementu do ulubionych
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  description: Rodzaj elementu dodawanego do ulubionych ['link', 'entry', 'link_comment', 'entry_comment']
+                  type: string
+                  example: link
+                  errors: ["not_blank", "not_found", "invalid_type"]
+                sourceId:
+                  description: Identyfikator elementu
+                  type: int
+                  example: 6
+                  errors: ["not_blank", "not_found", "invalid_type"]
+  responses:
+    204:
+      description: Pomyślnie dodano element do ulubionych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    400:
+      description: Element już dodany do ulubionych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 400
+            hash: ''
+            error:
+              message: Already exists
+              key: 0
+    409:
+      description: Wystąpił błąd podczas walidacji formularza.
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 409
+            hash: ''
+            error:
+              message: ''
+              key: 0
+  tags:
+    - Ulubione
+
+delete:
+  summary: Usuwanie elementu z ulubionych
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  description: Rodzaj elementu dodawanego do ulubionych ['link', 'entry', 'link_comment', 'entry_comment']
+                  type: string
+                  example: link
+                  errors: ["not_blank", "not_found"]
+                sourceId:
+                  description: Identyfikator elementu
+                  type: int
+                  example: 6
+                  errors: ["not_blank", "not_found"]
+  responses:
+    204:
+      description: Pomyślnie usunięto element z ulubionych
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.nocontent.yaml'
+    404:
+      description: Nie odnaleziono elementu
+      content:
+        application/json:
+          schema:
+            $ref: '/components/schemas/basic.error.yaml'
+          example:
+            code: 404
+            hash: ''
+            error:
+              message: Not found
+              key: 0
+  tags:
+    - Ulubione
+
+get:
+  summary: Pobranie ulubionych
+  description: Zwraca ulubione linki, wpisy oraz komentarze.
+  parameters:
+    - $ref: '/components/parameters/page.yaml'
+    - $ref: '/components/parameters/sort_basic.yaml'
+    - $ref: '/components/parameters/resource.yaml'
+  responses:
+    200:
+      description: Kolekcja ulubionych
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '/components/schemas/link_favourite.yaml#link_favourite'
+                      type: object
+                    - $ref: '/components/schemas/entry_favourite.yaml#entry_favourite'
+                      type: object
+                    - $ref: '/components/schemas/link_comment_favourite.yaml#link_comment_favourite'
+                      type: object
+                    - $ref: '/components/schemas/entry_comment_favourite.yaml#entry_comment_favourite'
+                      type: object
+              pagination:
+                $ref: '/components/schemas/pagination.yaml#pagination'
+  tags:
+    - Ulubione

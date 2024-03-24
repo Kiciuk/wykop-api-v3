@@ -1,0 +1,7 @@
+actions:
+  type: object
+  properties:
+    undo_vote:
+      description: Informacja czy użytkownik może cofnąć głos
+      type: boolean
+      example: false
